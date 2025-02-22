@@ -16,6 +16,11 @@ public class MedicionEntidad {
     public MedicionEntidad() {
     }
 
+    public MedicionEntidad(int idPrueba, int idParametro) {
+        this.idPrueba = idPrueba;
+        this.idParametro = idParametro;
+    }
+
     public MedicionEntidad(int id, int idPrueba, int idParametro) {
         this.id = id;
         this.idPrueba = idPrueba;
@@ -50,6 +55,4 @@ public class MedicionEntidad {
     public String toString() {
         return "MedicionEntidad{" + "id=" + id + ", idPrueba=" + idPrueba + ", idParametro=" + idParametro + '}';
     }
-    
-    
 }

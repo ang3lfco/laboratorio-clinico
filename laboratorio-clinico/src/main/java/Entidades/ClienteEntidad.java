@@ -70,8 +70,6 @@ public class ClienteEntidad {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    
-
     public LocalDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }
@@ -92,6 +90,4 @@ public class ClienteEntidad {
     public String toString() {
         return "ClienteEntidad{" + "id=" + id + ", nombres=" + nombres + ", apeliidoPaterno=" + apellidoPaterno + ", apeliidoMaterno=" + apellidoMaterno + ", fechaNacimiento=" + fechaNacimiento + ", estaBorrado=" + estaBorrado + '}';
     }
-    
-    
 }

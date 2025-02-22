@@ -11,17 +11,23 @@ package Entidades;
 public class PruebaEntidad {
     private int id;
     private String nombre;
-    private int idCategoria;
     private boolean estaBorrado;
+    private int idCategoria;
 
     public PruebaEntidad() {
     }
 
-    public PruebaEntidad(int id, String nombre, int idCategoria, boolean estaBorrado) {
+    public PruebaEntidad(String nombre, boolean estaBorrado, int idCategoria) {
+        this.nombre = nombre;
+        this.estaBorrado = estaBorrado;
+        this.idCategoria = idCategoria;
+    }
+
+    public PruebaEntidad(int id, String nombre, boolean estaBorrado, int idCategoria) {
         this.id = id;
         this.nombre = nombre;
-        this.idCategoria = idCategoria;
         this.estaBorrado = estaBorrado;
+        this.idCategoria = idCategoria;
     }
 
     public int getId() {

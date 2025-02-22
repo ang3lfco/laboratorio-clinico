@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 public class AnalisisEntidad {
     private int id;
     private LocalDateTime fechaHora;
-    private int idCliente;
     private boolean estaBorrado;
+    private int idCliente;
 
     public AnalisisEntidad() {
     }
@@ -49,9 +49,7 @@ public class AnalisisEntidad {
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
-
     
-
     public boolean isEstaBorrado() {
         return estaBorrado;
     }
@@ -64,8 +62,4 @@ public class AnalisisEntidad {
     public String toString() {
         return "AnalisisEntidad{" + "id=" + id + ", fechaHora=" + fechaHora + ", idCliente=" + idCliente + ", estaBorrado=" + estaBorrado + '}';
     }
-
-    
-    
-    
 }

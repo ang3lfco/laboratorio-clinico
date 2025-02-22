@@ -15,6 +15,10 @@ public class CategoriaEntidad {
     public CategoriaEntidad() {
     }
 
+    public CategoriaEntidad(String nombre) {
+        this.nombre = nombre;
+    }
+
     public CategoriaEntidad(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
@@ -40,6 +44,4 @@ public class CategoriaEntidad {
     public String toString() {
         return "CategoriaEntidad{" + "id=" + id + ", nombre=" + nombre + '}';
     }
-    
-    
 }

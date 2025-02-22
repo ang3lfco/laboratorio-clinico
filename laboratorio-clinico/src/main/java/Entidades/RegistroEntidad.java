@@ -16,6 +16,11 @@ public class RegistroEntidad {
     public RegistroEntidad() {
     }
 
+    public RegistroEntidad(int idAnalisis, int idPrueba) {
+        this.idAnalisis = idAnalisis;
+        this.idPrueba = idPrueba;
+    }
+
     public RegistroEntidad(int id, int idAnalisis, int idPrueba) {
         this.id = id;
         this.idAnalisis = idAnalisis;
@@ -50,6 +55,4 @@ public class RegistroEntidad {
     public String toString() {
         return "RegistroEntidad{" + "id=" + id + ", idAnalisis=" + idAnalisis + ", idPrueba=" + idPrueba + '}';
     }
-    
-    
 }

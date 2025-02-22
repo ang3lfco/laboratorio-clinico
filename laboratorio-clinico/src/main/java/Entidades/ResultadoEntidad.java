@@ -17,6 +17,12 @@ public class ResultadoEntidad {
     public ResultadoEntidad() {
     }
 
+    public ResultadoEntidad(int idAnalisis, int idParametro, String valor) {
+        this.idAnalisis = idAnalisis;
+        this.idParametro = idParametro;
+        this.valor = valor;
+    }
+
     public ResultadoEntidad(int id, int idAnalisis, int idParametro, String valor) {
         this.id = id;
         this.idAnalisis = idAnalisis;
@@ -60,6 +66,4 @@ public class ResultadoEntidad {
     public String toString() {
         return "ResultadoEntidad{" + "id=" + id + ", idAnalisis=" + idAnalisis + ", idParametro=" + idParametro + ", valor=" + valor + '}';
     }
-    
-    
 }

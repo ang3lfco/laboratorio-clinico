@@ -15,6 +15,10 @@ public class ParametroEntidad {
     public ParametroEntidad() {
     }
 
+    public ParametroEntidad(String nombre) {
+        this.nombre = nombre;
+    }
+
     public ParametroEntidad(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
@@ -40,6 +44,4 @@ public class ParametroEntidad {
     public String toString() {
         return "ParametroEntidad{" + "id=" + id + ", nombre=" + nombre + '}';
     }
-    
-    
 }
