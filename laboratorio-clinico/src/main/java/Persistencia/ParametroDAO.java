@@ -134,10 +134,12 @@ public class ParametroDAO implements IParametroDAO{
                                     id,
                                     nombre
                                FROM Parametros
+                               WHERE id = ?
                                """;
 
             PreparedStatement preparedStatement = conexion.prepareStatement(codigoSQL);
-
+            preparedStatement.setInt(1, id);
+            
             ResultSet resultado = preparedStatement.executeQuery();
             while (resultado.next()) {
                 cliente = this.convertirParametroAEntidad(resultado);

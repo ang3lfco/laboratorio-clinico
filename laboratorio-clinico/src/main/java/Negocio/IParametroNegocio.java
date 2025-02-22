@@ -4,10 +4,19 @@
  */
 package Negocio;
 
+import Dtos.GuardarParametroDTO;
+import Dtos.ParametroDTO;
+import Dtos.ParametroTablaDTO;
+import java.util.List;
+
 /**
  *
  * @author ReneEzequiel23
  */
 public interface IParametroNegocio {
-    
+    List<ParametroTablaDTO> buscarParametros() throws NegocioException;
+
+    ParametroDTO guardar(GuardarParametroDTO parametro) throws NegocioException;
+
+    ParametroDTO buscarPorId(int id) throws NegocioException;
 }
