@@ -8,6 +8,7 @@ import Dtos.EditarAnalisisDTO;
 import Dtos.EditarClienteDTO;
 import Dtos.GuardarAnalisisDTO;
 import Dtos.GuardarClienteDTO;
+import Dtos.GuardarParametroDTO;
 import Negocio.AnalisisNegocio;
 import Negocio.ClienteNegocio;
 import Negocio.IAnalisisNegocio;
@@ -19,6 +20,9 @@ import Persistencia.ConexionBD;
 import Persistencia.IAnalisisDAO;
 import Persistencia.IClienteDAO;
 import Persistencia.IConexionBD;
+import Persistencia.IParametroDAO;
+import Persistencia.ParametroDAO;
+import Persistencia.PersistenciaException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.logging.Level;
@@ -48,9 +52,15 @@ public class LaboratorioClinico {
         
         IAnalisisNegocio analisisNegocio = new AnalisisNegocio(analisisDAO);
         
+        IParametroDAO parametroDAO = new ParametroDAO(conexion);
+        
         try {
-            System.out.println(analisisNegocio.buscarPorId(1).toString());
-        } catch (NegocioException ex) {
+            parametroDAO.guardar(new GuardarParametroDTO("ParametroEJemplo"));
+            
+            for (int i = 0; i < parametroDAO.buscarParametros().size(); i++) {
+                System.out.println(parametroDAO.buscarParametros().get(i));
+            }
+        } catch (PersistenciaException ex) {
             Logger.getLogger(LaboratorioClinico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
