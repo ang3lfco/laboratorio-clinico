@@ -124,8 +124,8 @@ public class AnalisisNegocio implements IAnalisisNegocio{
         return new AnalisisDTO(
         analisis.getId(),
         analisis.getFechaHora(),
-        analisis.getIdCliente(),
-        analisis.isEstaBorrado());
+        analisis.isEstaBorrado(),
+        analisis.getIdCliente());
     }
 
     private void validarInformacionGuardarAnalisis(GuardarAnalisisDTO analisis) throws NegocioException {

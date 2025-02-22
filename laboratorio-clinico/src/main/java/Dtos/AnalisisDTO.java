@@ -13,19 +13,25 @@ import java.time.LocalDateTime;
 public class AnalisisDTO {
     private int id;
     private LocalDateTime fechaHora;
-    private int idCliente;
     private boolean estaBorrado;
+    private int idCliente;
 
     public AnalisisDTO() {
     }
 
-    public AnalisisDTO(int id, LocalDateTime fechaHora, int idCliente, boolean estaBorrado) {
-        this.id = id;
+    public AnalisisDTO(LocalDateTime fechaHora, boolean estaBorrado, int idCliente) {
         this.fechaHora = fechaHora;
-        this.idCliente = idCliente;
         this.estaBorrado = estaBorrado;
+        this.idCliente = idCliente;
     }
 
+    public AnalisisDTO(int id, LocalDateTime fechaHora, boolean estaBorrado, int idCliente) {
+        this.id = id;
+        this.fechaHora = fechaHora;
+        this.estaBorrado = estaBorrado;
+        this.idCliente = idCliente;
+    }
+    
     public int getId() {
         return id;
     }
@@ -60,8 +66,6 @@ public class AnalisisDTO {
 
     @Override
     public String toString() {
-        return "AnalisisDTO{" + "id=" + id + ", fechaHora=" + fechaHora + ", idCliente=" + idCliente + ", estaBorrado=" + estaBorrado + '}';
+        return "AnalisisDTO{" + "id=" + id + ", fechaHora=" + fechaHora + ", estaBorrado=" + estaBorrado + ", idCliente=" + idCliente + '}';
     }
-    
-    
 }

@@ -13,27 +13,27 @@ import java.time.LocalDateTime;
 public class ClienteDTO {
     private int id;
     private String nombres;
-    private String apeliidoPaterno;
-    private String apeliidoMaterno;
+    private String apellidoPaterno;
+    private String apellidoMaterno;
     private LocalDateTime fechaNacimiento;
     private boolean estaBorrado;
     
     public ClienteDTO() {
     }
 
-    public ClienteDTO(int id, String nombres, String apeliidoPaterno, String apeliidoMaterno, LocalDateTime fechaNacimiento) {
-        this.id = id;
+    public ClienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, LocalDateTime fechaNacimiento, boolean estaBorrado) {
         this.nombres = nombres;
-        this.apeliidoPaterno = apeliidoPaterno;
-        this.apeliidoMaterno = apeliidoMaterno;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
+        this.estaBorrado = estaBorrado;
     }
 
-    public ClienteDTO(int id, String nombres, String apeliidoPaterno, String apeliidoMaterno, LocalDateTime fechaNacimiento, boolean estaBorrado) {
+    public ClienteDTO(int id, String nombres, String apellidoPaterno, String apellidoMaterno, LocalDateTime fechaNacimiento, boolean estaBorrado) {
         this.id = id;
         this.nombres = nombres;
-        this.apeliidoPaterno = apeliidoPaterno;
-        this.apeliidoMaterno = apeliidoMaterno;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.estaBorrado = estaBorrado;
     }
@@ -45,7 +45,6 @@ public class ClienteDTO {
     public void setEstaBorrado(boolean estaBorrado) {
         this.estaBorrado = estaBorrado;
     }
-
     
     public int getId() {
         return id;
@@ -64,19 +63,19 @@ public class ClienteDTO {
     }
 
     public String getApeliidoPaterno() {
-        return apeliidoPaterno;
+        return apellidoPaterno;
     }
 
-    public void setApeliidoPaterno(String apeliidoPaterno) {
-        this.apeliidoPaterno = apeliidoPaterno;
+    public void setApellidoPaterno(String apeliidoPaterno) {
+        this.apellidoPaterno = apeliidoPaterno;
     }
 
-    public String getApeliidoMaterno() {
-        return apeliidoMaterno;
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
     }
 
-    public void setApeliidoMaterno(String apeliidoMaterno) {
-        this.apeliidoMaterno = apeliidoMaterno;
+    public void setApellidoMaterno(String apeliidoMaterno) {
+        this.apellidoMaterno = apeliidoMaterno;
     }
 
     public LocalDateTime getFechaNacimiento() {
@@ -89,9 +88,6 @@ public class ClienteDTO {
 
     @Override
     public String toString() {
-        return "ClienteDTO{" + "id=" + id + ", nombres=" + nombres + ", apeliidoPaterno=" + apeliidoPaterno + ", apeliidoMaterno=" + apeliidoMaterno + ", fechaNacimiento=" + fechaNacimiento + ", estaBorrado=" + estaBorrado + '}';
+        return "ClienteDTO{" + "id=" + id + ", nombres=" + nombres + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", fechaNacimiento=" + fechaNacimiento + ", estaBorrado=" + estaBorrado + '}';
     }
-
-    
-    
 }
