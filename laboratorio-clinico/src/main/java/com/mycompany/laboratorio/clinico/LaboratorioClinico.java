@@ -44,12 +44,12 @@ public class LaboratorioClinico {
         
         IAnalisisDAO analisisDAO = new AnalisisDAO(conexion);
         GuardarAnalisisDTO gAnalisis = new GuardarAnalisisDTO(LocalDateTime.of(2025, Month.DECEMBER, 17, 4, 24), 2);
-        EditarAnalisisDTO eAnalisis = new EditarAnalisisDTO(2,LocalDateTime.of(2014, Month.MAY, 11, 7, 34), 1, false);
+        EditarAnalisisDTO eAnalisis = new EditarAnalisisDTO(3,LocalDateTime.of(2003, Month.SEPTEMBER, 11, 9, 13), 2, false);
         
         IAnalisisNegocio analisisNegocio = new AnalisisNegocio(analisisDAO);
         
         try {
-            analisisNegocio.guardar(gAnalisis);
+            System.out.println(analisisNegocio.buscarPorId(1).toString());
         } catch (NegocioException ex) {
             Logger.getLogger(LaboratorioClinico.class.getName()).log(Level.SEVERE, null, ex);
         }

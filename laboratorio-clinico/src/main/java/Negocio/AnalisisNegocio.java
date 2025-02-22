@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Persistencia.IAnalisisDAO;
 import Persistencia.PersistenciaException;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -51,17 +52,49 @@ public class AnalisisNegocio implements IAnalisisNegocio{
 
     @Override
     public AnalisisDTO editar(EditarAnalisisDTO analisis) throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            this.validarCamposEnEditar(analisis);
+            this.existeElAnalisis(analisis);
+            
+            AnalisisEntidad analisisModificado = this.analisisDAO.editar(analisis);
+            System.out.println(analisisModificado);
+            return this.convertirAnalisisDTO(analisisModificado);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
 
     @Override
     public AnalisisDTO eliminar(int id) throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            if (id <= 0) {
+                throw new NegocioException("El id recibido es incorrecto");
+            }
+            AnalisisEntidad analisisBD = this.analisisDAO.buscarPorId(id);
+            if (analisisBD == null) {
+                throw new NegocioException("No se pudo obtener el analisis con la clave ingresada");
+            }
+            AnalisisEntidad analisisEliminado = this.analisisDAO.eliminar(id);
+            System.out.println(analisisEliminado);
+            return this.convertirAnalisisDTO(analisisEliminado);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
 
     @Override
     public AnalisisDTO buscarPorId(int id) throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    try {
+            if (id <= 0) {
+                throw new NegocioException("El id recibido es incorrecto");
+            }
+            AnalisisEntidad analisisBD = this.analisisDAO.buscarPorId(id);
+            AnalisisDTO analisisDTO = this.convertirAnalisisDTO(analisisBD);
+            return analisisDTO;
+        } catch (PersistenciaException ex) {
+            System.out.println(ex.getMessage());
+            throw new NegocioException(ex.getMessage());
+        }
     }
 
     private List<AnalisisTablaDTO> convertirAnalisisTablaDTO(List<AnalisisEntidad> analisisEntidadLista) {
@@ -95,9 +128,42 @@ public class AnalisisNegocio implements IAnalisisNegocio{
         analisis.isEstaBorrado());
     }
 
-    private void validarInformacionGuardarAnalisis(GuardarAnalisisDTO analisis) {
-        System.out.println("VAlidacionDeGuardado");
+    private void validarInformacionGuardarAnalisis(GuardarAnalisisDTO analisis) throws NegocioException {
+        LocalDateTime fechaHora = analisis.getFechaHora();
+        int idCliente = analisis.getIdCliente();
+        
+        if (fechaHora == null) {
+            throw new NegocioException ("La fecha del analisis no debe de estar en blanco");
+        }
+        if (idCliente<1) {
+            throw new NegocioException("El id del cliente es incorrecto");
+        }
     }
+
+    private void validarCamposEnEditar(EditarAnalisisDTO analisis) throws NegocioException {
+        int id = analisis.getId();
+        LocalDateTime fechaHora = analisis.getFechaHora();
+        int idCliente = analisis.getIdCliente();
+        
+        if (id<1) {
+            throw new NegocioException("El id del cliente es incorrecto");
+        }
+        if (fechaHora == null) {
+            throw new NegocioException ("La fecha del analisis no debe de estar en blanco");
+        }
+        if (idCliente<1) {
+            throw new NegocioException("El id del cliente es incorrecto");
+        }
+    }
+    
+    private void existeElAnalisis(EditarAnalisisDTO analisis) throws PersistenciaException, NegocioException {
+        AnalisisEntidad analisisBD = this.analisisDAO.buscarPorId(analisis.getId());
+        if (analisisBD == null) {
+            throw new NegocioException("No se pudo obtener el analisis con los parametros ingresados");
+        }
+    }
+
+    
     
     
 }

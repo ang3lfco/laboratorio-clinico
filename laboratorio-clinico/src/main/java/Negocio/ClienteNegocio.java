@@ -144,7 +144,7 @@ public class ClienteNegocio implements IClienteNegocio {
             throw new NegocioException("El apellido materno no debe estar en blanco y tampoco debe de pasar los 50 caracteres.");
         }
         if (fechaNacimiento == null) {
-            System.out.println("La fecha de nacimiento no debe de estar en blanco");
+            throw new NegocioException("La fecha de nacimiento no debe de estar en blanco");
         }
     }
 
