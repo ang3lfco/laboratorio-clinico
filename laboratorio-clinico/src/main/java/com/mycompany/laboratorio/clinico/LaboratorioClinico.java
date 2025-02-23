@@ -14,6 +14,7 @@ import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.ParametroNegocio;
 import Negocio.PruebaNegocio;
+import Negocio.Reporte;
 import Persistencia.AnalisisDAO;
 import Persistencia.CategoriaDAO;
 import Persistencia.ClienteDAO;
@@ -27,6 +28,7 @@ import Persistencia.IPruebaDAO;
 import Persistencia.ParametroDAO;
 import Persistencia.PruebaDAO;
 import Presentacion.frmIniciarSesion;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -54,5 +56,9 @@ public class LaboratorioClinico {
         
         frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio);
         iniciar.setVisible(true);
+        
+        
+//        Reporte reporte = new Reporte();
+//        reporte.Reporte("fecha1", "fecha2", new DefaultTableModel());
     }
 }
