@@ -5,7 +5,9 @@
 package Presentacion;
 
 import Dtos.CategoriaDTO;
+import Dtos.ParametroTablaDTO;
 import Negocio.ICategoriaNegocio;
+import Negocio.IParametroNegocio;
 import Negocio.NegocioException;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,17 +20,20 @@ import javax.swing.JFrame;
  */
 public class frmRegistrarPrueba extends javax.swing.JFrame {
     private ICategoriaNegocio categoriaNegocio;
+    private IParametroNegocio parametroNegocio;
 
     /**
      * Creates new form frmRegistrarCliente
      */
-    public frmRegistrarPrueba(ICategoriaNegocio categoriaNegocio) throws NegocioException {
+    public frmRegistrarPrueba(ICategoriaNegocio categoriaNegocio, IParametroNegocio parametroNegocio) throws NegocioException {
         initComponents();
         this.categoriaNegocio = categoriaNegocio;
+        this.parametroNegocio = parametroNegocio;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
         cargarCategorias();
+        cargarParametros();
     }
     
     private void cargarCategorias() throws NegocioException{
@@ -40,9 +45,25 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
         }
     }
     
+    private void cargarParametros() throws NegocioException{
+        cmbParametros.removeAllItems();
+        cmbParametros.addItem("Selecciona un parametro");
+        List<ParametroTablaDTO> parametros = parametroNegocio.buscarParametros();
+        for(ParametroTablaDTO p : parametros){
+            cmbParametros.addItem(p.getNombre());
+        }
+    }
+    
     public void actualizarCategorias() {
         try {
             cargarCategorias();
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmRegistrarPrueba.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void actualizarParametros() {
+        try {
+            cargarParametros();
         } catch (NegocioException ex) {
             Logger.getLogger(frmRegistrarPrueba.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,12 +80,12 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnAgregarCategoria = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        btnAgregarParametro = new javax.swing.JLabel();
         cmbCategorias = new javax.swing.JComboBox<>();
+        cmbParametros = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,10 +93,6 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         jTextField1.setText("Nombre");
-
-        jTextField2.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jTextField2.setText("Parametro");
-        jTextField2.setToolTipText("");
 
         jButton1.setBackground(new java.awt.Color(52, 71, 169));
         jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
@@ -96,12 +113,20 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/more.png"))); // NOI18N
-        jLabel4.setText("Agregar parametro");
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarParametro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/more.png"))); // NOI18N
+        btnAgregarParametro.setText("Agregar parametro");
+        btnAgregarParametro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarParametro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarParametroMouseClicked(evt);
+            }
+        });
 
         cmbCategorias.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         cmbCategorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cmbParametros.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        cmbParametros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,9 +143,9 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
                             .addComponent(jTextField1)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
                             .addComponent(btnAgregarCategoria)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField2)
-                            .addComponent(cmbCategorias, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnAgregarParametro)
+                            .addComponent(cmbCategorias, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbParametros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -130,17 +155,17 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(39, 39, 39)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbParametros, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addGap(34, 34, 34)
+                .addComponent(btnAgregarParametro)
+                .addGap(18, 18, 18)
                 .addComponent(cmbCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAgregarCategoria)
-                .addGap(37, 37, 37)
+                .addGap(42, 42, 42)
                 .addComponent(jButton1)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,6 +187,12 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
         frmRegistrarCategoria categoria = new frmRegistrarCategoria(categoriaNegocio, this);
         categoria.setVisible(true);
     }//GEN-LAST:event_btnAgregarCategoriaMouseClicked
+
+    private void btnAgregarParametroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarParametroMouseClicked
+        // TODO add your handling code here:
+        frmRegistrarParametro registrarParametro = new frmRegistrarParametro(parametroNegocio, this);
+        registrarParametro.setVisible(true);
+    }//GEN-LAST:event_btnAgregarParametroMouseClicked
 
 //    /**
 //     * @param args the command line arguments
@@ -203,12 +234,12 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregarCategoria;
+    private javax.swing.JLabel btnAgregarParametro;
     private javax.swing.JComboBox<String> cmbCategorias;
+    private javax.swing.JComboBox<String> cmbParametros;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

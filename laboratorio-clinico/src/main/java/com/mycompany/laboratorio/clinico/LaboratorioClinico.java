@@ -10,7 +10,9 @@ import Negocio.ClienteNegocio;
 import Negocio.IAnalisisNegocio;
 import Negocio.ICategoriaNegocio;
 import Negocio.IClienteNegocio;
+import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
+import Negocio.ParametroNegocio;
 import Negocio.PruebaNegocio;
 import Persistencia.AnalisisDAO;
 import Persistencia.CategoriaDAO;
@@ -20,7 +22,9 @@ import Persistencia.IAnalisisDAO;
 import Persistencia.ICategoriaDAO;
 import Persistencia.IClienteDAO;
 import Persistencia.IConexionBD;
+import Persistencia.IParametroDAO;
 import Persistencia.IPruebaDAO;
+import Persistencia.ParametroDAO;
 import Persistencia.PruebaDAO;
 import Presentacion.frmIniciarSesion;
 
@@ -45,7 +49,10 @@ public class LaboratorioClinico {
         IAnalisisDAO analisisDAO = new AnalisisDAO(conexion);
         IAnalisisNegocio analisisNegocio = new AnalisisNegocio(analisisDAO);
         
-        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio);
+        IParametroDAO parametroDAO = new ParametroDAO(conexion);
+        IParametroNegocio parametroNegocio = new ParametroNegocio(parametroDAO);
+        
+        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio);
         iniciar.setVisible(true);
     }
 }
