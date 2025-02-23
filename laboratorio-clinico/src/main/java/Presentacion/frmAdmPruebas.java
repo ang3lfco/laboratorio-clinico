@@ -4,8 +4,12 @@
  */
 package Presentacion;
 
+import Dtos.PruebaTablaDTO;
+import Negocio.IPruebaNegocio;
+import Negocio.NegocioException;
 import Utilidades.ButtonEditor;
 import Utilidades.ButtonRenderer;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,49 +20,46 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmAdmPruebas extends javax.swing.JFrame {
 
+    private IPruebaNegocio pruebaNegocio;
     /**
      * Creates new form frmAdmPruebas
      */
-    public frmAdmPruebas() {
+    public frmAdmPruebas(IPruebaNegocio pruebaNegocio) throws NegocioException {
         initComponents();
+        this.pruebaNegocio = pruebaNegocio;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         cargarDatos();
         configurarTabla();
     }
     
-    private void cargarDatos() {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    private void cargarDatos() throws NegocioException {
+        List<PruebaTablaDTO> pruebas = pruebaNegocio.buscarPruebas();
+        
+        DefaultTableModel model = (DefaultTableModel) tblPruebas.getModel();
         model.setRowCount(0);
         
-        Object[][] datos = {
-            {"Hemoglobina", "Nivel de Hemoglobina", "Hematología"},
-            {"Glucosa en Sangre", "Nivel de Glucosa", "Bioquímica"},
-            {"Colesterol Total", "Nivel de Colesterol", "Bioquímica"},
-            {"VIH", "Presencia de Anticuerpos VIH", "Inmunología"},
-            {"Prueba de Embarazo", "Presencia de hCG", "Hormonas"},
-            {"Creatinina", "Nivel de Creatinina", "Bioquímica"},
-            {"Urea", "Nivel de Urea", "Bioquímica"},
-            {"Plaquetas", "Conteo de Plaquetas", "Hematología"},
-            {"Grupo Sanguíneo", "Tipo de Sangre", "Inmunohematología"},
-            {"PCR", "Proteína C Reactiva", "Inflamación"}
-        };
         
-        for (Object[] fila : datos) {
-            model.addRow(new Object[]{fila[0], fila[1], fila[2], "Icono"});
+        for (PruebaTablaDTO p: pruebas) {
+            Object[] row = new Object[4];
+            row[0] = p.getNombre();
+            row[1] = "prueba";
+            row[2] = p.getIdCategoria();
+            
+            model.addRow(row);
         }
-        jTable1.setRowHeight(40);
+        tblPruebas.setRowHeight(40);
     }
     
     private void configurarTabla() {
-        jTable1.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer());
+        tblPruebas.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer());
 
         ButtonEditor editor = new ButtonEditor(
-            e -> JOptionPane.showMessageDialog(null, "Editar Prueba en fila: " + jTable1.getSelectedRow()), 
-            e -> JOptionPane.showMessageDialog(null, "Eliminar Prueba en fila: " + jTable1.getSelectedRow())
+            e -> JOptionPane.showMessageDialog(null, "Editar Prueba en fila: " + tblPruebas.getSelectedRow()), 
+            e -> JOptionPane.showMessageDialog(null, "Eliminar Prueba en fila: " + tblPruebas.getSelectedRow())
         );
 
-        jTable1.getColumnModel().getColumn(3).setCellEditor(editor);
+        tblPruebas.getColumnModel().getColumn(3).setCellEditor(editor);
     }
 
     /**
@@ -73,7 +74,7 @@ public class frmAdmPruebas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPruebas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,7 +84,7 @@ public class frmAdmPruebas extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(9, 19, 71));
         jLabel1.setText("Administracion de Pruebas.");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPruebas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -94,7 +95,7 @@ public class frmAdmPruebas extends javax.swing.JFrame {
                 "Nombre", "Parametros", "Categoria", "Iconos"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPruebas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,42 +135,42 @@ public class frmAdmPruebas extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmAdmPruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmAdmPruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmAdmPruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmAdmPruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmAdmPruebas().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmPruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmPruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmPruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmPruebas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new frmAdmPruebas().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblPruebas;
     // End of variables declaration//GEN-END:variables
 }
