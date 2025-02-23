@@ -14,19 +14,19 @@ import java.time.LocalDateTime;
 public class ClienteTablaDTO {
     private int id;
     private String nombres;
-    private String apeliidoPaterno;
-    private String apeliidoMaterno;
+    private String apellidoPaterno;
+    private String apellidoMaterno;
     private LocalDate fechaNacimiento;
     private boolean estaBorrado;
     
     public ClienteTablaDTO() {
     }
 
-    public ClienteTablaDTO(int id, String nombres, String apeliidoPaterno, String apeliidoMaterno, LocalDate fechaNacimiento, boolean estaBorrado) {
+    public ClienteTablaDTO(int id, String nombres, String apellidoPaterno, String apellidoMaterno, LocalDate fechaNacimiento, boolean estaBorrado) {
         this.id = id;
         this.nombres = nombres;
-        this.apeliidoPaterno = apeliidoPaterno;
-        this.apeliidoMaterno = apeliidoMaterno;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.estaBorrado = estaBorrado;
     }
@@ -56,20 +56,20 @@ public class ClienteTablaDTO {
         this.nombres = nombres;
     }
 
-    public String getApeliidoPaterno() {
-        return apeliidoPaterno;
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
     }
 
-    public void setApeliidoPaterno(String apeliidoPaterno) {
-        this.apeliidoPaterno = apeliidoPaterno;
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
     }
 
-    public String getApeliidoMaterno() {
-        return apeliidoMaterno;
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
     }
 
-    public void setApeliidoMaterno(String apeliidoMaterno) {
-        this.apeliidoMaterno = apeliidoMaterno;
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
     }
 
     public LocalDate getFechaNacimiento() {
@@ -82,8 +82,6 @@ public class ClienteTablaDTO {
 
     @Override
     public String toString() {
-        return "ClienteTablaDTO{" + "id=" + id + ", nombres=" + nombres + ", apeliidoPaterno=" + apeliidoPaterno + ", apeliidoMaterno=" + apeliidoMaterno + ", fechaNacimiento=" + fechaNacimiento + '}';
+        return "ClienteTablaDTO{" + "id=" + id + ", nombres=" + nombres + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", fechaNacimiento=" + fechaNacimiento + ", estaBorrado=" + estaBorrado + '}';
     }
-    
-    
 }

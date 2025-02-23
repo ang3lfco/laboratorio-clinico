@@ -35,9 +35,7 @@ public class ClienteNegocio implements IClienteNegocio {
     @Override
     public List<ClienteTablaDTO> buscarAlumnos() throws NegocioException {
         try {
-            //this.ReglasDeNegocioParaBuscarAlumnos("Hola");
-            List<ClienteEntidad> alumnosEntidadLista = this.clienteDAO.buscarClientes(); //2
-
+            List<ClienteEntidad> alumnosEntidadLista = this.clienteDAO.buscarClientes();
             return this.convertirClienteTablaDTO(alumnosEntidadLista);
         } catch (PersistenciaException ex) {
             throw new NegocioException(ex.getMessage());
@@ -118,11 +116,13 @@ public class ClienteNegocio implements IClienteNegocio {
         }
         List<ClienteTablaDTO> clientesDTO = new ArrayList<>();
         for (ClienteEntidad entidad : entidades) {
-            ClienteTablaDTO dato = new ClienteTablaDTO(entidad.getId(),
-                    entidad.getNombres(), entidad.getApellidoPaterno(),
-                    entidad.getApellidoMaterno(), entidad.getFechaNacimiento(),
+            ClienteTablaDTO dato = new ClienteTablaDTO(
+                    entidad.getId(),
+                    entidad.getNombres(), 
+                    entidad.getApellidoPaterno(),
+                    entidad.getApellidoMaterno(), 
+                    entidad.getFechaNacimiento(),
                     entidad.isEstaBorrado());
-
             clientesDTO.add(dato);
         }
         return clientesDTO;

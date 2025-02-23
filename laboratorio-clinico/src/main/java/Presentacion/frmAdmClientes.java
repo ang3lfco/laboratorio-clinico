@@ -4,8 +4,12 @@
  */
 package Presentacion;
 
+import Dtos.ClienteTablaDTO;
+import Negocio.IClienteNegocio;
+import Negocio.NegocioException;
 import Utilidades.ButtonEditor;
 import Utilidades.ButtonRenderer;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,50 +19,43 @@ import javax.swing.table.DefaultTableModel;
  * @author ang3lfco
  */
 public class frmAdmClientes extends javax.swing.JFrame {
-
+    private IClienteNegocio clienteNegocio;
     /**
      * Creates new form frmAdmClientes
      */
-    public frmAdmClientes() {
+    public frmAdmClientes(IClienteNegocio clienteNegocio) throws NegocioException {
         initComponents();
+        this.clienteNegocio = clienteNegocio;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         cargarDatos();
         configurarTabla();
     }
     
-    private void cargarDatos() {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    private void cargarDatos() throws NegocioException {
+        List<ClienteTablaDTO> clientes = clienteNegocio.buscarAlumnos();
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setRowCount(0);
-        
-        Object[][] datos = {
-            {"Juan", "Pérez", "Gómez", "1990-05-14"},
-            {"Ana", "López", "Martínez", "1985-08-22"},
-            {"Carlos", "Hernández", "Díaz", "1992-11-10"},
-            {"María", "García", "Fernández", "1988-03-30"},
-            {"Pedro", "Ramírez", "Torres", "1995-07-18"},
-            {"Juan", "Pérez", "Gómez", "1990-05-14"},
-            {"Ana", "López", "Martínez", "1985-08-22"},
-            {"Carlos", "Hernández", "Díaz", "1992-11-10"},
-            {"María", "García", "Fernández", "1988-03-30"},
-            {"Pedro", "Ramírez", "Torres", "1995-07-18"}
-        };
-        
-        for (Object[] fila : datos) {
-            model.addRow(new Object[]{fila[0], fila[1], fila[2], fila[3], ""});
+        for(ClienteTablaDTO c : clientes){
+            Object[] row = new Object[4];
+            row[0] = c.getNombres();
+            row[1] = c.getApellidoPaterno();
+            row[2] = c.getApellidoMaterno();
+            row[3] = c.getFechaNacimiento();
+            model.addRow(row);
         }
-        jTable1.setRowHeight(40);
+        tblClientes.setRowHeight(40);
     }
     
     private void configurarTabla() {
-        jTable1.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+        tblClientes.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
 
         ButtonEditor editor = new ButtonEditor(
-            e -> JOptionPane.showMessageDialog(null, "Editar Cliente en fila: " + jTable1.getSelectedRow()), 
-            e -> JOptionPane.showMessageDialog(null, "Eliminar Cliente en fila: " + jTable1.getSelectedRow())
+            e -> JOptionPane.showMessageDialog(null, "Editar Cliente en fila: " + tblClientes.getSelectedRow()), 
+            e -> JOptionPane.showMessageDialog(null, "Eliminar Cliente en fila: " + tblClientes.getSelectedRow())
         );
 
-        jTable1.getColumnModel().getColumn(4).setCellEditor(editor);
+        tblClientes.getColumnModel().getColumn(4).setCellEditor(editor);
     }
 
     /**
@@ -73,7 +70,7 @@ public class frmAdmClientes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,7 +80,7 @@ public class frmAdmClientes extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(9, 19, 71));
         jLabel1.setText("Administracion de Clientes.");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -94,8 +91,8 @@ public class frmAdmClientes extends javax.swing.JFrame {
                 "Nombre", "Apellido Paterno", "Apellido Materno", "Fecha de Nacimiento", ""
             }
         ));
-        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(jTable1);
+        tblClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(tblClientes);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -132,45 +129,45 @@ public class frmAdmClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmAdmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmAdmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmAdmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmAdmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmAdmClientes().setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new frmAdmClientes().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblClientes;
     // End of variables declaration//GEN-END:variables
 }

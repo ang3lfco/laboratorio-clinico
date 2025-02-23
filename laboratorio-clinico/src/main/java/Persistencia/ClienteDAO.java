@@ -52,17 +52,7 @@ public class ClienteDAO implements IClienteDAO {
     @Override
     public List<ClienteEntidad> buscarClientes() throws PersistenciaException {
         try {
-            String consultaSQL = """
-                                 SELECT
-                                 	id,
-                                 	nombres,
-                                 	apellidoPaterno,
-                                 	apellidoMaterno, 
-                                 	fechaNacimiento,
-                                 	estaBorrado           
-                                 FROM Clientes
-                                 WHERE estaBorrado = 0;                                 
-                                 """;
+            String consultaSQL = "SELECT id, nombres, apellidoPaterno, apellidoMaterno, fechaNacimiento, estaBorrado FROM clientes";
             Connection conexion = this.conexionBD.crearConexion();
             PreparedStatement preparedStatement = conexion.prepareStatement(consultaSQL);
             ResultSet resultado = preparedStatement.executeQuery();

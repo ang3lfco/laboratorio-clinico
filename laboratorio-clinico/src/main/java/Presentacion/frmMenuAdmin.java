@@ -5,6 +5,9 @@
 package Presentacion;
 
 import Negocio.IClienteNegocio;
+import Negocio.NegocioException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -516,8 +519,13 @@ public class frmMenuAdmin extends javax.swing.JFrame {
 
     private void pnlAdmClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAdmClientesMouseClicked
         // TODO add your handling code here:
-        frmAdmClientes clientes = new frmAdmClientes();
-        clientes.setVisible(true);
+        frmAdmClientes clientes;
+        try {
+            clientes = new frmAdmClientes(this.clienteNegocio);
+            clientes.setVisible(true);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmMenuAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_pnlAdmClientesMouseClicked
 
     private void pnlAdmPruebasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAdmPruebasMouseClicked
