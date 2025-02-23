@@ -51,8 +51,12 @@ public class frmAdmClientes extends javax.swing.JFrame {
         tblClientes.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
 
         ButtonEditor editor = new ButtonEditor(
-            e -> JOptionPane.showMessageDialog(null, "Editar Cliente en fila: " + tblClientes.getSelectedRow()), 
-            e -> JOptionPane.showMessageDialog(null, "Eliminar Cliente en fila: " + tblClientes.getSelectedRow())
+                e -> {
+                    JOptionPane.showMessageDialog(null, "Editar Cliente en fila: " + tblClientes.getSelectedRow());
+                },
+                e -> {
+                    JOptionPane.showMessageDialog(null, "Eliminar Cliente en fila: " + tblClientes.getSelectedRow());
+                }
         );
 
         tblClientes.getColumnModel().getColumn(4).setCellEditor(editor);

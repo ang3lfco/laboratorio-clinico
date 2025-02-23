@@ -8,11 +8,13 @@ import Dtos.CategoriaDTO;
 import Dtos.ParametroTablaDTO;
 import Negocio.ICategoriaNegocio;
 import Negocio.IParametroNegocio;
+import Negocio.IPruebaNegocio;
 import Negocio.NegocioException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,6 +23,10 @@ import javax.swing.JFrame;
 public class frmRegistrarPrueba extends javax.swing.JFrame {
     private ICategoriaNegocio categoriaNegocio;
     private IParametroNegocio parametroNegocio;
+    private IPruebaNegocio pruebaNegocio;
+    
+    private List<CategoriaDTO> categorias;
+    List<ParametroTablaDTO> parametros;
 
     /**
      * Creates new form frmRegistrarCliente
@@ -34,12 +40,33 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
         
         cargarCategorias();
         cargarParametros();
+        
+        cmbParametros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                String parametroSeleccionado = (String) cmbParametros.getSelectedItem();
+                if (parametroSeleccionado != null && !parametroSeleccionado.equals("Selecciona un parametro")) {
+                    String parametrosEnLista = txaParametrosSeleccionados.getText();
+                    if(!parametrosEnLista.contains(parametroSeleccionado)){
+                        if (txaParametrosSeleccionados.getText().isEmpty()) {
+                            txaParametrosSeleccionados.setText(parametroSeleccionado);
+                        }
+                        else {
+                            txaParametrosSeleccionados.append("\n" + parametroSeleccionado);
+                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "El parametro ya esta seleccionado. ");
+                    }
+                    cmbParametros.setSelectedItem("Selecciona un parametro");
+                }
+            }
+        });
     }
     
     private void cargarCategorias() throws NegocioException{
         cmbCategorias.removeAllItems();
         cmbCategorias.addItem("Selecciona una categoria");
-        List<CategoriaDTO> categorias = categoriaNegocio.buscarCategorias();
+        categorias = categoriaNegocio.buscarCategorias();
         for(CategoriaDTO c : categorias){
             cmbCategorias.addItem(c.getNombre());
         }
@@ -48,7 +75,7 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
     private void cargarParametros() throws NegocioException{
         cmbParametros.removeAllItems();
         cmbParametros.addItem("Selecciona un parametro");
-        List<ParametroTablaDTO> parametros = parametroNegocio.buscarParametros();
+        parametros = parametroNegocio.buscarParametros();
         for(ParametroTablaDTO p : parametros){
             cmbParametros.addItem(p.getNombre());
         }
@@ -80,12 +107,14 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnRegistrarPrueba = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnAgregarCategoria = new javax.swing.JLabel();
         btnAgregarParametro = new javax.swing.JLabel();
         cmbCategorias = new javax.swing.JComboBox<>();
         cmbParametros = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txaParametrosSeleccionados = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,11 +123,16 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         jTextField1.setText("Nombre");
 
-        jButton1.setBackground(new java.awt.Color(52, 71, 169));
-        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Registrar");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarPrueba.setBackground(new java.awt.Color(52, 71, 169));
+        btnRegistrarPrueba.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        btnRegistrarPrueba.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarPrueba.setText("Registrar");
+        btnRegistrarPrueba.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarPrueba.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistrarPruebaMouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(9, 19, 71));
@@ -128,6 +162,10 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
         cmbParametros.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         cmbParametros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        txaParametrosSeleccionados.setColumns(20);
+        txaParametrosSeleccionados.setRows(5);
+        jScrollPane1.setViewportView(txaParametrosSeleccionados);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -141,11 +179,12 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                            .addComponent(btnRegistrarPrueba, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
                             .addComponent(btnAgregarCategoria)
                             .addComponent(btnAgregarParametro)
                             .addComponent(cmbCategorias, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbParametros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(cmbParametros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1))))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -164,8 +203,10 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAgregarCategoria)
                 .addGap(42, 42, 42)
-                .addComponent(jButton1)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addComponent(btnRegistrarPrueba)
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -193,6 +234,11 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
         frmRegistrarParametro registrarParametro = new frmRegistrarParametro(parametroNegocio, this);
         registrarParametro.setVisible(true);
     }//GEN-LAST:event_btnAgregarParametroMouseClicked
+
+    private void btnRegistrarPruebaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPruebaMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnRegistrarPruebaMouseClicked
 
 //    /**
 //     * @param args the command line arguments
@@ -235,11 +281,13 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregarCategoria;
     private javax.swing.JLabel btnAgregarParametro;
+    private javax.swing.JButton btnRegistrarPrueba;
     private javax.swing.JComboBox<String> cmbCategorias;
     private javax.swing.JComboBox<String> cmbParametros;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextArea txaParametrosSeleccionados;
     // End of variables declaration//GEN-END:variables
 }
