@@ -30,7 +30,7 @@ public class AnalisisNegocio implements IAnalisisNegocio{
     @Override
     public List<AnalisisTablaDTO> buscarAnalisis() throws NegocioException {
     try {
-            List<AnalisisEntidad> analisisEntidadLista = this.analisisDAO.buscarAnalisis(); //2
+            List<AnalisisEntidad> analisisEntidadLista = this.analisisDAO.buscarAnalisis();
 
             return this.convertirAnalisisTablaDTO(analisisEntidadLista);
         } catch (PersistenciaException ex) {
