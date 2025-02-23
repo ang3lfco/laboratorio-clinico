@@ -4,6 +4,8 @@
  */
 package Presentacion;
 
+import Negocio.IAnalisisNegocio;
+import Negocio.ICategoriaNegocio;
 import Negocio.IClienteNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.NegocioException;
@@ -16,14 +18,18 @@ import java.util.logging.Logger;
  */
 public class frmMenuAdmin extends javax.swing.JFrame {
     private IClienteNegocio clienteNegocio;
-    IPruebaNegocio pruebaNegocio;
+    private IPruebaNegocio pruebaNegocio;
+    private ICategoriaNegocio categoriaNegocio;
+    private IAnalisisNegocio analisisNegocio;
     /**
      * Creates new form frmMenuAdmin
      */
-    public frmMenuAdmin(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio) {
+    public frmMenuAdmin(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio) {
         initComponents();
         this.clienteNegocio = clienteNegocio;
         this.pruebaNegocio = pruebaNegocio;
+        this.categoriaNegocio = categoriaNegocio;
+        this.analisisNegocio = analisisNegocio;
         setLocationRelativeTo(null);
         
     }
@@ -552,8 +558,14 @@ public class frmMenuAdmin extends javax.swing.JFrame {
 
     private void pnlRegistrarPruebaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlRegistrarPruebaMouseClicked
         // TODO add your handling code here:
-        frmRegistrarPrueba prueba = new frmRegistrarPrueba();
-        prueba.setVisible(true);
+        frmRegistrarPrueba prueba;
+        try {
+            prueba = new frmRegistrarPrueba(categoriaNegocio);
+            prueba.setVisible(true);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmMenuAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_pnlRegistrarPruebaMouseClicked
 
     private void pnlRegistrarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlRegistrarClienteMouseClicked
@@ -566,7 +578,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
         frmRegistrarAnalisis analisis;
         try {
-            analisis = new frmRegistrarAnalisis(clienteNegocio, pruebaNegocio);
+            analisis = new frmRegistrarAnalisis(clienteNegocio, pruebaNegocio, analisisNegocio);
             analisis.setVisible(true);
         } catch (NegocioException ex) {
             Logger.getLogger(frmMenuAdmin.class.getName()).log(Level.SEVERE, null, ex);

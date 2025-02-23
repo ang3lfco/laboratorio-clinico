@@ -33,7 +33,7 @@ public class frmAdmClientes extends javax.swing.JFrame {
     }
     
     private void cargarDatos() throws NegocioException {
-        List<ClienteTablaDTO> clientes = clienteNegocio.buscarAlumnos();
+        List<ClienteTablaDTO> clientes = clienteNegocio.buscarClientes();
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setRowCount(0);
         for(ClienteTablaDTO c : clientes){

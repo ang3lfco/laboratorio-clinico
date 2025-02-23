@@ -33,10 +33,10 @@ public class ClienteNegocio implements IClienteNegocio {
      * @return @throws NegocioException
      */
     @Override
-    public List<ClienteTablaDTO> buscarAlumnos() throws NegocioException {
+    public List<ClienteTablaDTO> buscarClientes() throws NegocioException {
         try {
-            List<ClienteEntidad> alumnosEntidadLista = this.clienteDAO.buscarClientes();
-            return this.convertirClienteTablaDTO(alumnosEntidadLista);
+            List<ClienteEntidad> clientesEntidadLista = this.clienteDAO.buscarClientes();
+            return this.convertirClienteTablaDTO(clientesEntidadLista);
         } catch (PersistenciaException ex) {
             throw new NegocioException(ex.getMessage());
         }

@@ -15,7 +15,7 @@ import java.util.List;
  * @author ReneEzequiel23
  */
 public interface IClienteNegocio {
-    List<ClienteTablaDTO> buscarAlumnos() throws NegocioException;
+    List<ClienteTablaDTO> buscarClientes() throws NegocioException;
 
     ClienteDTO guardar(GuardarClienteDTO cliente) throws NegocioException;
 

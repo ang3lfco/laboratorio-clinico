@@ -5,12 +5,16 @@
 package Presentacion;
 
 import Dtos.ClienteTablaDTO;
+import Dtos.GuardarAnalisisDTO;
 import Dtos.PruebaTablaDTO;
+import Negocio.IAnalisisNegocio;
 import Negocio.IClienteNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.NegocioException;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,13 +23,19 @@ import javax.swing.JFrame;
 public class frmRegistrarAnalisis extends javax.swing.JFrame {
     private IClienteNegocio clienteNegocio;
     private IPruebaNegocio pruebaNegocio;
+    
+    private List<ClienteTablaDTO> clientes;
+    private List<PruebaTablaDTO> pruebas;
+    
+    private IAnalisisNegocio analisisNegocio;
     /**
      * Creates new form frmRegistrarCliente
      */
-    public frmRegistrarAnalisis(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio) throws NegocioException {
+    public frmRegistrarAnalisis(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, IAnalisisNegocio analisisNegocio) throws NegocioException {
         initComponents();
         this.clienteNegocio = clienteNegocio;
         this.pruebaNegocio = pruebaNegocio;
+        this.analisisNegocio = analisisNegocio;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         cargarClientes();
@@ -35,7 +45,7 @@ public class frmRegistrarAnalisis extends javax.swing.JFrame {
     private void cargarClientes() throws NegocioException{
         cmbClientes.removeAllItems();
         cmbClientes.addItem("Selecciona un cliente");
-        List<ClienteTablaDTO> clientes = clienteNegocio.buscarAlumnos();
+        clientes = clienteNegocio.buscarClientes();
         for(ClienteTablaDTO c : clientes){
             String nombreCliente = c.getNombres() + " " + c.getApellidoPaterno() + " " + c.getApellidoMaterno();
             cmbClientes.addItem(nombreCliente);
@@ -44,8 +54,8 @@ public class frmRegistrarAnalisis extends javax.swing.JFrame {
     
     private void cargarPruebas() throws NegocioException{
         cmbPruebas.removeAllItems();
-        cmbPruebas.addItem("Seleccion una prueba");
-        List<PruebaTablaDTO> pruebas = pruebaNegocio.buscarPruebas();
+        cmbPruebas.addItem("Selecciona una prueba");
+        pruebas = pruebaNegocio.buscarPruebas();
         for(PruebaTablaDTO p : pruebas){
             cmbPruebas.addItem(p.getNombre());
         }
@@ -142,6 +152,43 @@ public class frmRegistrarAnalisis extends javax.swing.JFrame {
 
     private void btnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseClicked
         // TODO add your handling code here:
+        String nombreClienteSeleccionado = (String) cmbClientes.getSelectedItem();
+        String nombrePruebaSeleccionada = (String) cmbPruebas.getSelectedItem();
+        
+        if(!nombreClienteSeleccionado.equals("Selecciona un cliente") || !nombrePruebaSeleccionada.equals("Selecciona una prueba")){
+            ClienteTablaDTO clienteSeleccionado = null;
+            PruebaTablaDTO pruebaSeleccionada = null;
+            
+            for(ClienteTablaDTO c : clientes){
+                String nombreCompleto = c.getNombres() + " " + c.getApellidoPaterno() + " " + c.getApellidoMaterno();
+                if(nombreClienteSeleccionado.equals(nombreCompleto)){
+                    clienteSeleccionado = c;
+                    break;
+                }
+            }
+            for(PruebaTablaDTO p : pruebas){
+                String nombreCompleto = p.getNombre();
+                if(nombrePruebaSeleccionada.equals(nombreCompleto)){
+                    pruebaSeleccionada = p;
+                    break;
+                }
+            }
+            
+            if(clienteSeleccionado != null && pruebaSeleccionada != null){
+                int idCliente = clienteSeleccionado.getId();
+                int idPrueba = pruebaSeleccionada.getId();
+                JOptionPane.showMessageDialog(null, "Cliente: " + idCliente + " | Prueba: " + idPrueba);
+                
+                try{
+                    analisisNegocio.guardar(new GuardarAnalisisDTO(LocalDateTime.now(), idCliente));
+                    JOptionPane.showMessageDialog(null, "Analisis registrado.");
+                    this.dispose();
+                }
+                catch(NegocioException e){
+                    JOptionPane.showMessageDialog(null, "error. " + e.getMessage());
+                }
+            }
+        }
     }//GEN-LAST:event_btnRegistrarMouseClicked
 
     private void cmbPruebasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbPruebasMouseClicked
@@ -185,7 +232,7 @@ public class frmRegistrarAnalisis extends javax.swing.JFrame {
 //            }
 //        });
 //    }
-
+    private javax.swing.JComboBox<ClienteTablaDTO> cmbClientes2;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cmbClientes;

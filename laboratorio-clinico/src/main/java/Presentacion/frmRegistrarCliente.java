@@ -133,6 +133,8 @@ public class frmRegistrarCliente extends javax.swing.JFrame {
         GuardarClienteDTO cliente = new GuardarClienteDTO(nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento);
         try{
             clienteNegocio.guardar(cliente);
+            JOptionPane.showMessageDialog(null, "Cliente agregado.");
+            this.dispose();
         }
         catch(NegocioException e){
             JOptionPane.showMessageDialog(null, "Error al registrar: " + e.getMessage());

@@ -4,6 +4,8 @@
  */
 package Presentacion;
 
+import Negocio.IAnalisisNegocio;
+import Negocio.ICategoriaNegocio;
 import Negocio.IClienteNegocio;
 import Negocio.IPruebaNegocio;
 
@@ -14,14 +16,17 @@ import Negocio.IPruebaNegocio;
 public class frmIniciarSesion extends javax.swing.JFrame {
     private IClienteNegocio clienteNegocio;
     private IPruebaNegocio pruebaNegocio;
-
+    private ICategoriaNegocio categoriaNegocio;
+    private IAnalisisNegocio analisisNegocio;
     /**
      * Creates new form frmIniciarSesion
      */
-    public frmIniciarSesion(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio) {
+    public frmIniciarSesion(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio) {
         initComponents();
         this.clienteNegocio = clienteNegocio;
         this.pruebaNegocio = pruebaNegocio;
+        this.categoriaNegocio = categoriaNegocio;
+        this.analisisNegocio = analisisNegocio;
         setLocationRelativeTo(null);
     }
 
@@ -113,9 +118,8 @@ public class frmIniciarSesion extends javax.swing.JFrame {
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
         // TODO add your handling code here:
-        frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio);
+        frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio);
         admin.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_btnIngresarMouseClicked
 //
 //    /**
