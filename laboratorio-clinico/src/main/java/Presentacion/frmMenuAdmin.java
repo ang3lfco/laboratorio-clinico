@@ -5,6 +5,7 @@
 package Presentacion;
 
 import Negocio.IClienteNegocio;
+import Negocio.IPruebaNegocio;
 import Negocio.NegocioException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,12 +16,14 @@ import java.util.logging.Logger;
  */
 public class frmMenuAdmin extends javax.swing.JFrame {
     private IClienteNegocio clienteNegocio;
+    IPruebaNegocio pruebaNegocio;
     /**
      * Creates new form frmMenuAdmin
      */
-    public frmMenuAdmin(IClienteNegocio clienteNegocio) {
+    public frmMenuAdmin(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio) {
         initComponents();
         this.clienteNegocio = clienteNegocio;
+        this.pruebaNegocio = pruebaNegocio;
         setLocationRelativeTo(null);
         
     }
@@ -554,8 +557,13 @@ public class frmMenuAdmin extends javax.swing.JFrame {
 
     private void frmRegistrarAnalisisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frmRegistrarAnalisisMouseClicked
         // TODO add your handling code here:
-        frmRegistrarAnalisis analisis = new frmRegistrarAnalisis();
-        analisis.setVisible(true);
+        frmRegistrarAnalisis analisis;
+        try {
+            analisis = new frmRegistrarAnalisis(clienteNegocio, pruebaNegocio);
+            analisis.setVisible(true);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmMenuAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_frmRegistrarAnalisisMouseClicked
 
     private void pnlHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlHistorialMouseClicked

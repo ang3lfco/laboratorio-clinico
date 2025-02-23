@@ -2,34 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entidades;
+package Dtos;
 
 /**
- * 
- * @author ReneEzequiel23
+ *
+ * @author ang3lfco
  */
-public class PruebaEntidad {
+public class PruebaTablaDTO {
     private int id;
     private String nombre;
     private int idCategoria;
     private boolean estaBorrado;
 
-    public PruebaEntidad() {
-    }
-
-    public PruebaEntidad(String nombre, int idCategoria, boolean estaBorrado) {
-        this.nombre = nombre;
-        this.idCategoria = idCategoria;
-        this.estaBorrado = estaBorrado;
-    }
-
-    public PruebaEntidad(int id, String nombre, int idCategoria, boolean estaBorrado) {
+    public PruebaTablaDTO(int id, String nombre, int idCategoria, boolean estaBorrado) {
         this.id = id;
         this.nombre = nombre;
         this.idCategoria = idCategoria;
         this.estaBorrado = estaBorrado;
     }
-
+    
     public int getId() {
         return id;
     }
@@ -46,14 +37,6 @@ public class PruebaEntidad {
         this.nombre = nombre;
     }
 
-    public int getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
-    }
-
     public boolean isEstaBorrado() {
         return estaBorrado;
     }
@@ -62,10 +45,11 @@ public class PruebaEntidad {
         this.estaBorrado = estaBorrado;
     }
 
-    @Override
-    public String toString() {
-        return "PruebaEntidad{" + "id=" + id + ", nombre=" + nombre + ", idCategoria=" + idCategoria + ", estaBorrado=" + estaBorrado + '}';
+    public int getIdCategoria() {
+        return idCategoria;
     }
-    
-    
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
 }

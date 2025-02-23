@@ -6,10 +6,14 @@ package com.mycompany.laboratorio.clinico;
 
 import Negocio.ClienteNegocio;
 import Negocio.IClienteNegocio;
+import Negocio.IPruebaNegocio;
+import Negocio.PruebaNegocio;
 import Persistencia.ClienteDAO;
 import Persistencia.ConexionBD;
 import Persistencia.IClienteDAO;
 import Persistencia.IConexionBD;
+import Persistencia.IPruebaDAO;
+import Persistencia.PruebaDAO;
 import Presentacion.frmIniciarSesion;
 
 
@@ -22,7 +26,9 @@ public class LaboratorioClinico {
         IConexionBD conexion = new ConexionBD();
         IClienteDAO clienteDAO = new ClienteDAO(conexion);
         IClienteNegocio clienteNegocio = new ClienteNegocio(clienteDAO);
-        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio);
+        IPruebaDAO pruebaDAO = new PruebaDAO(conexion);
+        IPruebaNegocio pruebaNegocio = new PruebaNegocio(pruebaDAO);
+        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio);
         iniciar.setVisible(true);
     }
 }

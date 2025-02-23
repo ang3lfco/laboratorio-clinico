@@ -61,6 +61,8 @@ CREATE TABLE Resultados (
     FOREIGN KEY (idParametro) REFERENCES Parametros(id)
 );
 
+SELECT * FROM Clientes;
+
 INSERT INTO Clientes (nombres, apellidoPaterno, apellidoMaterno, fechaNacimiento, estaBorrado) 
 VALUES ('Juan', 'Pérez', 'Rodríguez', '1990-03-15 00:00:00', 0);
 
