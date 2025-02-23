@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Persistencia.IClienteDAO;
 import Persistencia.PersistenciaException;
+import java.time.LocalDate;
 
 /**
  * 
@@ -52,8 +53,7 @@ public class ClienteNegocio implements IClienteNegocio {
     @Override
     public ClienteDTO guardar(GuardarClienteDTO cliente) throws NegocioException {
         try {
-             this.validarInformacionGuardarCliente(cliente);
-
+            this.validarInformacionGuardarCliente(cliente);
             ClienteEntidad clienteGuardado = this.clienteDAO.guardar(cliente);
             return this.convertirClienteDTO(clienteGuardado);
         } catch (PersistenciaException ex) {
@@ -132,7 +132,7 @@ public class ClienteNegocio implements IClienteNegocio {
         String nombres = cliente.getNombres();
         String apellidoPaterno = cliente.getApellidoPaterno();
         String apellidoMaterno = cliente.getApellidoMaterno();
-        LocalDateTime fechaNacimiento = cliente.getFechaNacimiento();
+        LocalDate fechaNacimiento = cliente.getFechaNacimiento();
         
         if (nombres == null || nombres.isEmpty() || nombres.length()>50) {
             throw new NegocioException("El nombre no debe estar en blanco y tampoco debe de pasar los 50 caracteres.");

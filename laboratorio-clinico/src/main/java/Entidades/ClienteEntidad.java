@@ -4,7 +4,7 @@
  */
 package Entidades;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * 
@@ -15,13 +15,13 @@ public class ClienteEntidad {
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private LocalDateTime fechaNacimiento;
+    private LocalDate fechaNacimiento;
     private boolean estaBorrado;
 
     public ClienteEntidad() {
     }
 
-    public ClienteEntidad(String nombres, String apeliidoPaterno, String apeliidoMaterno, LocalDateTime fechaNacimiento, boolean estaBorrado) {
+    public ClienteEntidad(String nombres, String apeliidoPaterno, String apeliidoMaterno, LocalDate fechaNacimiento, boolean estaBorrado) {
         this.nombres = nombres;
         this.apellidoPaterno = apeliidoPaterno;
         this.apellidoMaterno = apeliidoMaterno;
@@ -29,7 +29,7 @@ public class ClienteEntidad {
         this.estaBorrado = estaBorrado;
     }
 
-    public ClienteEntidad(int id, String nombres, String apeliidoPaterno, String apeliidoMaterno, LocalDateTime fechaNacimiento, boolean estaBorrado) {
+    public ClienteEntidad(int id, String nombres, String apeliidoPaterno, String apeliidoMaterno, LocalDate fechaNacimiento, boolean estaBorrado) {
         this.id = id;
         this.nombres = nombres;
         this.apellidoPaterno = apeliidoPaterno;
@@ -70,11 +70,11 @@ public class ClienteEntidad {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public LocalDateTime getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

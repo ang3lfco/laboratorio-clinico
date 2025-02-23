@@ -4,6 +4,7 @@
  */
 package Dtos;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -15,13 +16,13 @@ public class ClienteTablaDTO {
     private String nombres;
     private String apeliidoPaterno;
     private String apeliidoMaterno;
-    private LocalDateTime fechaNacimiento;
+    private LocalDate fechaNacimiento;
     private boolean estaBorrado;
     
     public ClienteTablaDTO() {
     }
 
-    public ClienteTablaDTO(int id, String nombres, String apeliidoPaterno, String apeliidoMaterno, LocalDateTime fechaNacimiento, boolean estaBorrado) {
+    public ClienteTablaDTO(int id, String nombres, String apeliidoPaterno, String apeliidoMaterno, LocalDate fechaNacimiento, boolean estaBorrado) {
         this.id = id;
         this.nombres = nombres;
         this.apeliidoPaterno = apeliidoPaterno;
@@ -71,11 +72,11 @@ public class ClienteTablaDTO {
         this.apeliidoMaterno = apeliidoMaterno;
     }
 
-    public LocalDateTime getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

@@ -4,6 +4,7 @@
  */
 package Dtos;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -14,20 +15,15 @@ public class GuardarClienteDTO {
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private LocalDateTime fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
-    public GuardarClienteDTO() {
-    }
-
-    public GuardarClienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, LocalDateTime fechaNacimiento) {
+    public GuardarClienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, LocalDate fechaNacimiento) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
     }
-
-   
-
+    
     public String getNombres() {
         return nombres;
     }
@@ -51,16 +47,12 @@ public class GuardarClienteDTO {
     public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
     }
-
     
-
-    public LocalDateTime getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-    
-    
 }

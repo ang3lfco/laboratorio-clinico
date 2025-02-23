@@ -8,11 +8,13 @@ import Dtos.EditarClienteDTO;
 import Dtos.GuardarClienteDTO;
 import Entidades.ClienteEntidad;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,29 +97,31 @@ public class ClienteDAO implements IClienteDAO {
     public ClienteEntidad guardar(GuardarClienteDTO cliente) throws PersistenciaException {
         try {
             this.conexionGeneral = this.conexionBD.crearConexion();
+            if(this.conexionGeneral == null){
+                throw new PersistenciaException("No se logro la conexion con la BD.");
+            }
             this.conexionGeneral.setAutoCommit(false);
-            int id = this.GuardarCliente(cliente);
+            int id = this.guardarCliente(cliente);
             // Confirmar la transacción
             conexionGeneral.commit();
+            conexionGeneral.setAutoCommit(true);
             return this.buscarPorId(id);
         } catch (SQLException | PersistenciaException ex) {
-            try {
-                // Deshacer cambios en caso de error
-                if (this.conexionGeneral != null) {
+            if(this.conexionGeneral != null){
+                try{
                     this.conexionGeneral.rollback();
+                } catch (SQLException rollbackEx) {
+                    System.out.println("Error al hacer rollback: " + rollbackEx.getMessage());
                 }
-            } catch (SQLException rollbackEx) {
-                System.out.println("Error al hacer rollback: " + rollbackEx.getMessage());
             }
-            System.out.println("Error al querer hacer la transaccion " + ex.getMessage());
             throw new PersistenciaException("Ocurrió un error al registrar el cliente, inténtelo de nuevo y si el error persiste comuníquese con el encargado del sistema.");
         } finally {
-            try {
-                if (this.conexionGeneral != null) {
+            if(this.conexionGeneral != null){
+                try{
                     this.conexionGeneral.close();
+                } catch(SQLException ex){
+                    System.out.println("Error al cerrar la conexion de la base de datos");
                 }
-            } catch (SQLException ex) {
-                System.out.println("Error al cerrar la conexion de la base de datos");
             }
         }
     }
@@ -128,7 +132,7 @@ public class ClienteDAO implements IClienteDAO {
      * @return id del cliente que se guardó en la base de datos
      * @throws SQLException Si ocurre un error al guardar el cliente
      */
-    private int GuardarCliente(GuardarClienteDTO cliente) throws SQLException {
+    private int guardarCliente(GuardarClienteDTO cliente) throws SQLException {
         int id = 0;
         String insert = """
                                     INSERT INTO `Clientes` (`nombres`,
@@ -141,7 +145,7 @@ public class ClienteDAO implements IClienteDAO {
             preparedStatement.setString(1, cliente.getNombres());
             preparedStatement.setString(2, cliente.getApellidoPaterno());
             preparedStatement.setString(3, cliente.getApellidoMaterno());
-            preparedStatement.setTimestamp(4, Timestamp.valueOf(cliente.getFechaNacimiento()));
+            preparedStatement.setDate(4, Date.valueOf(cliente.getFechaNacimiento()));
             preparedStatement.executeUpdate();
 
             try (ResultSet resultado = preparedStatement.getGeneratedKeys()) {
@@ -340,7 +344,7 @@ public class ClienteDAO implements IClienteDAO {
         String nombres = resultado.getString("nombres");
         String apellidoPaterno = resultado.getString("apellidopaterno");
         String apellidoMaterno = resultado.getString("apellidomaterno");
-        LocalDateTime fechaNacimiento = resultado.getTimestamp("fechaNacimiento").toLocalDateTime();
+        LocalDate fechaNacimiento = resultado.getDate("fechaNacimiento").toLocalDate();
         boolean estaBorrado = resultado.getBoolean("estaborrado");
         return new ClienteEntidad(id, nombres, apellidoPaterno, apellidoMaterno, fechaNacimiento, estaBorrado);
     }

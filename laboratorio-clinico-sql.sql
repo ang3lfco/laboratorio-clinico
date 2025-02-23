@@ -6,7 +6,7 @@ CREATE TABLE Clientes (
     nombres VARCHAR(50) NOT NULL,
     apellidoPaterno VARCHAR(50) NOT NULL,
     apellidoMaterno VARCHAR(50) NOT NULL,
-    fechaNacimiento DATETIME NOT NULL,
+    fechaNacimiento DATE NOT NULL,
     estaBorrado BIT DEFAULT 0
 );
 
@@ -60,7 +60,6 @@ CREATE TABLE Resultados (
     FOREIGN KEY (idAnalisis) REFERENCES Analisis(id),
     FOREIGN KEY (idParametro) REFERENCES Parametros(id)
 );
-
 
 INSERT INTO Clientes (nombres, apellidoPaterno, apellidoMaterno, fechaNacimiento, estaBorrado) 
 VALUES ('Juan', 'Pérez', 'Rodríguez', '1990-03-15 00:00:00', 0);
