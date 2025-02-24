@@ -32,10 +32,11 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
     /**
      * Creates new form frmRegistrarCliente
      */
-    public frmRegistrarPrueba(ICategoriaNegocio categoriaNegocio, IParametroNegocio parametroNegocio) throws NegocioException {
+    public frmRegistrarPrueba(ICategoriaNegocio categoriaNegocio, IParametroNegocio parametroNegocio, IPruebaNegocio pruebaNegocio) throws NegocioException {
         initComponents();
         this.categoriaNegocio = categoriaNegocio;
         this.parametroNegocio = parametroNegocio;
+        this.pruebaNegocio = pruebaNegocio;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
@@ -254,6 +255,8 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
                 int idCategoria = categoriaSeleccionada.getId();
                 try{
                     pruebaNegocio.guardar(new GuardarPruebaDTO(nombrePrueba, idCategoria));
+                    JOptionPane.showMessageDialog(null, "Prueba registrada.");
+                    this.dispose();
                 }
                 catch(NegocioException e){
                     JOptionPane.showMessageDialog(null, "error. " + e.getMessage());

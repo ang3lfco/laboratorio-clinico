@@ -563,7 +563,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
         frmRegistrarPrueba prueba;
         try {
-            prueba = new frmRegistrarPrueba(categoriaNegocio, parametroNegocio);
+            prueba = new frmRegistrarPrueba(categoriaNegocio, parametroNegocio, pruebaNegocio);
             prueba.setVisible(true);
         } catch (NegocioException ex) {
             Logger.getLogger(frmMenuAdmin.class.getName()).log(Level.SEVERE, null, ex);
