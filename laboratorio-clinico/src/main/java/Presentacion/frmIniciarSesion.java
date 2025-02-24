@@ -17,6 +17,7 @@ import Negocio.IReporteNegocio;
 import Negocio.NegocioException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -143,24 +144,31 @@ public class frmIniciarSesion extends javax.swing.JFrame {
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
         try {
             // TODO add your handling code here:
-            
             String usuario = jTextField1.getText();
             String pass = jPasswordField1.getText();
             
             EmpleadoDTO empleado = this.empleadoNegocio.logIn(usuario, pass);
             
             if (empleado.getTipo().equals("administrativo")) {
+<<<<<<< HEAD
             frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio, reporteNegocio);
             admin.setVisible(true);
+=======
+                frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio);
+                JOptionPane.showMessageDialog(null, "Bienvenido administrativo.");
+                admin.setVisible(true);
+>>>>>>> 55969d172c8c6f663e087ad9da81146ff708e150
             }
-            if (empleado.getTipo().equals("capturista")) {
+            else if (empleado.getTipo().equals("capturista")) {
                 frmMenuCap cap = new frmMenuCap();
+                JOptionPane.showMessageDialog(null, "Bienvenido capturista.");
                 cap.setVisible(true);
             }
-            
-            
+            else{
+                JOptionPane.showMessageDialog(null, "No tienes acceso al sistema.");
+            }
         } catch (NegocioException ex) {
-            Logger.getLogger(frmIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error. " + ex.getMessage());
         }
     }//GEN-LAST:event_btnIngresarMouseClicked
 
