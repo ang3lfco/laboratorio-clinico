@@ -7,9 +7,11 @@ package com.mycompany.laboratorio.clinico;
 import Negocio.AnalisisNegocio;
 import Negocio.CategoriaNegocio;
 import Negocio.ClienteNegocio;
+import Negocio.EmpleadoNegocio;
 import Negocio.IAnalisisNegocio;
 import Negocio.ICategoriaNegocio;
 import Negocio.IClienteNegocio;
+import Negocio.IEmpleadoNegocio;
 import Negocio.IMedicionNegocio;
 import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
@@ -23,10 +25,12 @@ import Persistencia.AnalisisDAO;
 import Persistencia.CategoriaDAO;
 import Persistencia.ClienteDAO;
 import Persistencia.ConexionBD;
+import Persistencia.EmpleadoDAO;
 import Persistencia.IAnalisisDAO;
 import Persistencia.ICategoriaDAO;
 import Persistencia.IClienteDAO;
 import Persistencia.IConexionBD;
+import Persistencia.IEmpleadoDAO;
 import Persistencia.IMedicionDAO;
 import Persistencia.IParametroDAO;
 import Persistencia.IPruebaDAO;
@@ -68,7 +72,10 @@ public class LaboratorioClinico {
         IRegistroDAO registroDAO = new RegistroDAO(conexion);
         IRegistroNegocio registroNegocio = new RegistroNegocio(registroDAO);
         
-        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio);
+        IEmpleadoDAO empleadoDAO = new EmpleadoDAO(conexion);
+        IEmpleadoNegocio empleadoNegocio = new EmpleadoNegocio(empleadoDAO);
+        
+        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio,empleadoNegocio);
         iniciar.setVisible(true);
         
         

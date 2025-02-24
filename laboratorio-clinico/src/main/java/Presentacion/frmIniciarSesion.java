@@ -4,13 +4,18 @@
  */
 package Presentacion;
 
+import Dtos.EmpleadoDTO;
 import Negocio.IAnalisisNegocio;
 import Negocio.ICategoriaNegocio;
 import Negocio.IClienteNegocio;
+import Negocio.IEmpleadoNegocio;
 import Negocio.IMedicionNegocio;
 import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.IRegistroNegocio;
+import Negocio.NegocioException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,10 +29,11 @@ public class frmIniciarSesion extends javax.swing.JFrame {
     private IParametroNegocio parametroNegocio;
     private IMedicionNegocio medicionNegocio;
     private IRegistroNegocio registroNegocio;
+    private IEmpleadoNegocio empleadoNegocio;
     /**
      * Creates new form frmIniciarSesion
      */
-    public frmIniciarSesion(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio, IRegistroNegocio registroNegocio) {
+    public frmIniciarSesion(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio, IRegistroNegocio registroNegocio, IEmpleadoNegocio empleadoNegocio) {
         initComponents();
         this.clienteNegocio = clienteNegocio;
         this.pruebaNegocio = pruebaNegocio;
@@ -36,6 +42,7 @@ public class frmIniciarSesion extends javax.swing.JFrame {
         this.parametroNegocio = parametroNegocio;
         this.medicionNegocio = medicionNegocio;
         this.registroNegocio = registroNegocio;
+        this.empleadoNegocio = empleadoNegocio;
         setLocationRelativeTo(null);
     }
 
@@ -72,6 +79,11 @@ public class frmIniciarSesion extends javax.swing.JFrame {
         btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnIngresarMouseClicked(evt);
+            }
+        });
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
             }
         });
 
@@ -126,10 +138,32 @@ public class frmIniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
-        // TODO add your handling code here:
-        frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio);
-        admin.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            
+            String usuario = jTextField1.getText();
+            String pass = jPasswordField1.getText();
+            
+            EmpleadoDTO empleado = this.empleadoNegocio.logIn(usuario, pass);
+            
+            if (empleado.getTipo().equals("administrativo")) {
+            frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio);
+            admin.setVisible(true);
+            }
+            if (empleado.getTipo().equals("capturista")) {
+                frmMenuCap cap = new frmMenuCap();
+                cap.setVisible(true);
+            }
+            
+            
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnIngresarMouseClicked
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngresarActionPerformed
 //
 //    /**
 //     * @param args the command line arguments
