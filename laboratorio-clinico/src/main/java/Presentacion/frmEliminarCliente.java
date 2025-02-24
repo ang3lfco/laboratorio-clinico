@@ -4,6 +4,7 @@
  */
 package Presentacion;
 
+import Dtos.ClienteDTO;
 import Dtos.EditarClienteDTO;
 import Dtos.GuardarClienteDTO;
 import Negocio.IClienteNegocio;
@@ -19,13 +20,13 @@ import javax.swing.JOptionPane;
  *
  * @author ang3lfco
  */
-public class frmEditarCliente extends javax.swing.JFrame {
+public class frmEliminarCliente extends javax.swing.JFrame {
     private IClienteNegocio clienteNegocio;
-    private EditarClienteDTO cliente;
+    private ClienteDTO cliente;
     /**
      * Creates new form frmRegistrarCliente
      */
-    public frmEditarCliente(IClienteNegocio clienteNegocio, EditarClienteDTO cliente) {
+    public frmEliminarCliente(IClienteNegocio clienteNegocio, ClienteDTO cliente) {
         
         this.cliente = cliente;
         this.clienteNegocio = clienteNegocio;
@@ -37,15 +38,19 @@ public class frmEditarCliente extends javax.swing.JFrame {
     
     private void cargarDatosTabla(){
         String nombre = cliente.getNombres();
-        String apellidoPaterno = cliente.getApellidoPaterno();
+        String apellidoPaterno = cliente.getApeliidoPaterno();
         String apellidoMaterno = cliente.getApellidoMaterno();
-        LocalDateTime fecha = cliente.getFechaNacimiento();
-        LocalDate fechaNacimiento = LocalDate.of(fecha.getYear(), fecha.getMonth(), fecha.getDayOfMonth());
+        LocalDate fechaNacimiento = cliente.getFechaNacimiento();
         
         txfNombre.setText(nombre);
         txfApellidoPaterno.setText(apellidoPaterno);
         txfApellidoMaterno.setText(apellidoMaterno);
         dtpFechaNacimiento.setDate(fechaNacimiento);
+        
+        txfNombre.disable();
+        txfApellidoPaterno.disable();
+        txfApellidoMaterno.disable();
+        dtpFechaNacimiento.disable();
     }
 
     /**
@@ -75,7 +80,7 @@ public class frmEditarCliente extends javax.swing.JFrame {
         txfApellidoPaterno.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         txfApellidoPaterno.setText("Apellido Paterno");
 
-        btnRegistrar.setText("Registrar");
+        btnRegistrar.setText("Borrar");
         btnRegistrar.setBackground(new java.awt.Color(52, 71, 169));
         btnRegistrar.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
@@ -145,23 +150,14 @@ public class frmEditarCliente extends javax.swing.JFrame {
 
     private void btnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseClicked
         // TODO add your handling code here:
-        String nombre = txfNombre.getText();
-        String apellidoPaterno = txfApellidoPaterno.getText();
-        String apellidoMaterno = txfApellidoMaterno.getText();
-        
-        LocalDate fechaNacimiento = dtpFechaNacimiento.getDate();
-        LocalDateTime fecha = LocalDateTime.of(fechaNacimiento, LocalTime.MIN);
-        
-        
-        EditarClienteDTO cliente = new EditarClienteDTO(this.cliente.getId(),nombre, apellidoPaterno, apellidoMaterno, fecha);
         
         try{
-            clienteNegocio.editar(cliente);
-            JOptionPane.showMessageDialog(null, "Client: "+ nombre + "editado.");
+            clienteNegocio.eliminar(cliente.getId());
+            JOptionPane.showMessageDialog(null, "Client: "+ cliente.getNombres() + " eliminado.");
             this.dispose();
         }
         catch(NegocioException e){
-            JOptionPane.showMessageDialog(null, "Error al editar: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al borrar: " + e.getMessage());
         }
     }//GEN-LAST:event_btnRegistrarMouseClicked
 

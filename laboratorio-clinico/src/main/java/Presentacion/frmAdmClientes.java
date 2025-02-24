@@ -4,12 +4,19 @@
  */
 package Presentacion;
 
+import Dtos.ClienteDTO;
 import Dtos.ClienteTablaDTO;
+import Dtos.EditarClienteDTO;
 import Negocio.IClienteNegocio;
 import Negocio.NegocioException;
 import Utilidades.ButtonEditor;
 import Utilidades.ButtonRenderer;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -52,10 +59,50 @@ public class frmAdmClientes extends javax.swing.JFrame {
 
         ButtonEditor editor = new ButtonEditor(
                 e -> {
-                    JOptionPane.showMessageDialog(null, "Editar Cliente en fila: " + tblClientes.getSelectedRow());
+            try {
+                EditarClienteDTO clienteEditado;
+                
+                ClienteTablaDTO clienteAEditar = clienteNegocio.buscarClientes().get(tblClientes.getSelectedRow());
+                
+                clienteEditado = new EditarClienteDTO(
+                        clienteAEditar.getId(),
+                        clienteAEditar.getNombres(),
+                        clienteAEditar.getApellidoPaterno(),
+                        clienteAEditar.getApellidoMaterno(),
+                        (LocalDateTime.of(clienteAEditar.getFechaNacimiento().getYear(),
+                                clienteAEditar.getFechaNacimiento().getMonthValue(),
+                                clienteAEditar.getFechaNacimiento().getDayOfMonth(),
+                                0, 0) ));
+                
+                
+                frmEditarCliente frmEditar = new frmEditarCliente(clienteNegocio,clienteEditado);
+                frmEditar.setVisible(true);
+                
+                
+            } catch (NegocioException ex) {
+                Logger.getLogger(frmAdmClientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 },
                 e -> {
-                    JOptionPane.showMessageDialog(null, "Eliminar Cliente en fila: " + tblClientes.getSelectedRow());
+            try {
+                ClienteDTO cliente;
+                
+                ClienteTablaDTO clienteAEditar = clienteNegocio.buscarClientes().get(tblClientes.getSelectedRow());
+                
+                cliente = new ClienteDTO(
+                        clienteAEditar.getId(),
+                        clienteAEditar.getNombres(),
+                        clienteAEditar.getApellidoPaterno(),
+                        clienteAEditar.getApellidoMaterno(),
+                        clienteAEditar.getFechaNacimiento(),
+                        false);
+                
+                
+                frmEliminarCliente frmEliminar = new frmEliminarCliente(clienteNegocio,cliente);
+                frmEliminar.setVisible(true);
+            } catch (NegocioException ex) {
+                Logger.getLogger(frmAdmClientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 }
         );
 
