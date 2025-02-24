@@ -4,8 +4,15 @@
  */
 package Presentacion;
 
+import Dtos.AnalisisTablaDTO;
+import Dtos.EditarAnalisisDTO;
+import Negocio.IAnalisisNegocio;
+import Negocio.NegocioException;
 import Utilidades.ButtonEditor;
 import Utilidades.ButtonRenderer;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,41 +23,30 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmAdmAnalisis extends javax.swing.JFrame {
 
+    IAnalisisNegocio analisisNegocio;
     /**
      * Creates new form frmAdmAnalisis
      */
-    public frmAdmAnalisis() {
+    public frmAdmAnalisis(IAnalisisNegocio analisisNegocio) throws NegocioException {
         initComponents();
+        this.analisisNegocio = analisisNegocio;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         cargarDatos();
         configurarTabla();
     }
     
-    private void cargarDatos() {
+    private void cargarDatos() throws NegocioException {
+        List<AnalisisTablaDTO> analisis = analisisNegocio.buscarAnalisis();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         
-        Object[][] datos = {
-            {"Juan Pérez", "Hemoglobina", "2025-02-21 08:30"},
-            {"Ana López", "Glucosa en Sangre", "2025-02-21 09:15"},
-            {"Carlos Hernández", "Colesterol Total", "2025-02-21 10:00"},
-            {"María García", "VIH", "2025-02-21 11:30"},
-            {"Pedro Ramírez", "Prueba de Embarazo", "2025-02-21 12:45"},
-            {"Juan Pérez", "Creatinina", "2025-02-21 13:20"},
-            {"Ana López", "Urea", "2025-02-21 14:10"},
-            {"Carlos Hernández", "Plaquetas", "2025-02-21 15:05"},
-            {"María García", "Grupo Sanguíneo", "2025-02-21 16:30"},
-            {"Pedro Ramírez", "PCR", "2025-02-21 17:45"},
-            {"Juan Pérez", "Hemoglobina, Glucosa en Sangre", "2025-02-22 08:00"},
-            {"Ana López", "Colesterol Total, Creatinina", "2025-02-22 09:30"},
-            {"Carlos Hernández", "VIH, PCR", "2025-02-22 10:45"},
-            {"María García", "Prueba de Embarazo, Grupo Sanguíneo", "2025-02-22 11:55"},
-            {"Pedro Ramírez", "Urea, Plaquetas", "2025-02-22 13:10"}
-        };
-        
-        for (Object[] fila : datos) {
-            model.addRow(new Object[]{fila[0], fila[1], fila[2], "Icono"});
+        for (AnalisisTablaDTO a : analisis) {
+            Object[] row = new Object[3];
+            row[0] = a.getIdCliente();
+            row[1] = "pruebas";
+            row[2] = a.getFechaHora();
+            model.addRow(row);
         }
         jTable1.setRowHeight(40);
     }
@@ -60,10 +56,30 @@ public class frmAdmAnalisis extends javax.swing.JFrame {
 
         ButtonEditor editor = new ButtonEditor(
             e -> {
-                JOptionPane.showMessageDialog(null, "Editar Analisis en fila: " + jTable1.getSelectedRow());
+            try {
+                EditarAnalisisDTO analisisEditado;
+                
+                AnalisisTablaDTO analisisAEditar = analisisNegocio.buscarAnalisis().get(jTable1.getSelectedRow());
+                 analisisEditado = new EditarAnalisisDTO(
+                 analisisAEditar.getId(),
+                 analisisAEditar.getFechaHora(),
+                 analisisAEditar.getIdCliente(),
+                 analisisAEditar.isEstaBorrado());
+                 
+                 frmEditarAnalisis frmAnalisis = new frmEditarAnalisis(analisisNegocio, analisisEditado);
+                 frmAnalisis.setVisible(true);
+            } catch (NegocioException ex) {
+                Logger.getLogger(frmAdmAnalisis.class.getName()).log(Level.SEVERE, null, ex);
+            }
             },
             e -> {
-                JOptionPane.showMessageDialog(null, "Eliminar Analisis en fila: " + jTable1.getSelectedRow());
+            try {
+                AnalisisTablaDTO analisisBorrar = analisisNegocio.buscarAnalisis().get(jTable1.getSelectedRow());
+                analisisNegocio.eliminar(analisisBorrar.getId());
+                JOptionPane.showMessageDialog(null, "Eliminado Analisis en fila: " + jTable1.getSelectedRow());
+            } catch (NegocioException ex) {
+                Logger.getLogger(frmAdmAnalisis.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }
         );
 
@@ -144,37 +160,37 @@ public class frmAdmAnalisis extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmAdmAnalisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmAdmAnalisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmAdmAnalisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmAdmAnalisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmAdmAnalisis().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmAnalisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmAnalisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmAnalisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmAnalisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new frmAdmAnalisis().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

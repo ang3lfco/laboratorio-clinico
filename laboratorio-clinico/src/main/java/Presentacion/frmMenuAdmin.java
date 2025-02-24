@@ -563,8 +563,14 @@ public class frmMenuAdmin extends javax.swing.JFrame {
 
     private void pnlAdmAnalisisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAdmAnalisisMouseClicked
         // TODO add your handling code here:
-        frmAdmAnalisis analisis = new frmAdmAnalisis();
-        analisis.setVisible(true);
+        frmAdmAnalisis analisis;
+        try {
+            analisis = new frmAdmAnalisis(analisisNegocio);
+            analisis.setVisible(true);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmMenuAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_pnlAdmAnalisisMouseClicked
 
     private void pnlRegistrarPruebaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlRegistrarPruebaMouseClicked

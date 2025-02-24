@@ -4,6 +4,7 @@
  */
 package Presentacion;
 
+import Dtos.PruebaDTO;
 import Dtos.PruebaTablaDTO;
 import Negocio.ICategoriaNegocio;
 import Negocio.IPruebaNegocio;
@@ -11,6 +12,8 @@ import Negocio.NegocioException;
 import Utilidades.ButtonEditor;
 import Utilidades.ButtonRenderer;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -61,8 +64,31 @@ public class frmAdmPruebas extends javax.swing.JFrame {
         tblPruebas.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer());
 
         ButtonEditor editor = new ButtonEditor(
-            e -> JOptionPane.showMessageDialog(null, "Editar Prueba en fila: " + tblPruebas.getSelectedRow()), 
-            e -> JOptionPane.showMessageDialog(null, "Eliminar Prueba en fila: " + tblPruebas.getSelectedRow())
+            e -> {try {
+                
+                PruebaTablaDTO pruebaAEditar = pruebaNegocio.buscarPruebas().get(tblPruebas.getSelectedRow());
+                int id = pruebaAEditar.getId(); 
+                String nombre = pruebaAEditar.getNombre();
+                int idCategoria = pruebaAEditar.getIdCategoria();
+                boolean estaBorrado = pruebaAEditar.isEstaBorrado();
+                PruebaDTO prueba = new PruebaDTO(id, nombre, idCategoria, estaBorrado);
+                
+                frmEditarPrueba frmPrueba = new frmEditarPrueba(pruebaNegocio, prueba);
+                frmPrueba.setVisible(true);
+            } catch (NegocioException ex) {
+                Logger.getLogger(frmAdmPruebas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+                    }, 
+            e -> {
+            try {
+                PruebaTablaDTO pruebaBorrar = pruebaNegocio.buscarPruebas().get(tblPruebas.getSelectedRow());
+                pruebaNegocio.eliminar(pruebaBorrar.getId());
+                JOptionPane.showMessageDialog(null, "Eliminó Prueba en fila: " + tblPruebas.getSelectedRow());
+            } catch (NegocioException ex) {
+                Logger.getLogger(frmAdmPruebas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
         );
 
         tblPruebas.getColumnModel().getColumn(3).setCellEditor(editor);

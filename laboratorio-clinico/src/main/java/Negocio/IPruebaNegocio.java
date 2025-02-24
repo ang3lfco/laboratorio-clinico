@@ -17,4 +17,6 @@ public interface IPruebaNegocio {
     List<PruebaTablaDTO> buscarPruebas() throws NegocioException;
     PruebaDTO guardar(GuardarPruebaDTO prueba) throws NegocioException;
     List<String> obtenerParametrosPorPrueba(int idPrueba) throws NegocioException;
+    PruebaDTO eliminar(int id) throws NegocioException;
+    PruebaDTO editar(PruebaDTO prueba) throws NegocioException;
 }

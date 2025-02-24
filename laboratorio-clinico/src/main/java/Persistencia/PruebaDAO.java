@@ -5,6 +5,7 @@
 package Persistencia;
 
 import Dtos.GuardarPruebaDTO;
+import Dtos.PruebaDTO;
 import Entidades.PruebaEntidad;
 import Negocio.NegocioException;
 import java.sql.Connection;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class PruebaDAO implements IPruebaDAO{
     private IConexionBD conexionBD;
-
+    private Connection conexionGeneral;
     public PruebaDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
     }
@@ -78,7 +79,8 @@ public class PruebaDAO implements IPruebaDAO{
         }
     }
     
-    public PruebaEntidad buscarId(int id) throws PersistenciaException{
+    @Override
+        public PruebaEntidad buscarId(int id) throws PersistenciaException{
         String query = "SELECT id, nombre, idCategoria, estaBorrado FROM pruebas WHERE id = ?";
         try{
             Connection mySqlConn = conexionBD.crearConexion();
@@ -120,5 +122,100 @@ public class PruebaDAO implements IPruebaDAO{
             throw new NegocioException("Error al obtener parametros. " + e.getMessage());
         }
         return parametros;
+    }
+    
+    @Override
+    public PruebaEntidad eliminar(int id) throws PersistenciaException {
+        try {
+            this.conexionGeneral = this.conexionBD.crearConexion();
+            this.conexionGeneral.setAutoCommit(false);
+            this.eliminarPrueba(id);
+            // Confirmar la transacción
+            conexionGeneral.commit();
+            return this.buscarId(id);
+        } catch (SQLException | PersistenciaException ex) {
+            try {
+                // Deshacer cambios en caso de error
+                if (this.conexionGeneral != null) {
+                    this.conexionGeneral.rollback();
+                }
+            } catch (SQLException rollbackEx) {
+                System.out.println("Error al hacer rollback: " + rollbackEx.getMessage());
+            }
+            System.out.println("Error al querer hacer la transaccion " + ex.getMessage());
+            throw new PersistenciaException("Ocurrió un error al editar el cliente, inténtelo de nuevo y si el error persiste comuníquese con el encargado del sistema.");
+        } finally {
+            try {
+                if (this.conexionGeneral != null) {
+                    this.conexionGeneral.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar la conexion de la base de datos");
+            }
+        }
+        
+    }
+    
+    private int eliminarPrueba(int id) throws SQLException {
+
+        String update = """
+                                UPDATE Pruebas 
+                                SET estaBorrado = 1
+                                WHERE id = ?
+                                """;
+
+        try (PreparedStatement preparedStatement = conexionGeneral.prepareStatement(update)) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+        }
+        return id;
+
+    }
+    
+    public PruebaEntidad editar(PruebaDTO prueba) throws PersistenciaException {
+        try {
+            this.conexionGeneral = this.conexionBD.crearConexion();
+            this.conexionGeneral.setAutoCommit(false);
+            int id = this.EditarPrueba(prueba);
+            // Confirmar la transacción
+            conexionGeneral.commit();
+            return this.buscarId(id);
+        } catch (SQLException | PersistenciaException ex) {
+            try {
+                // Deshacer cambios en caso de error
+                if (this.conexionGeneral != null) {
+                    this.conexionGeneral.rollback();
+                }
+            } catch (SQLException rollbackEx) {
+                System.out.println("Error al hacer rollback: " + rollbackEx.getMessage());
+            }
+            System.out.println("Error al querer hacer la transaccion " + ex.getMessage());
+            throw new PersistenciaException("Ocurrió un error al editar el cliente, inténtelo de nuevo y si el error persiste comuníquese con el encargado del sistema.");
+        } finally {
+            try {
+                if (this.conexionGeneral != null) {
+                    this.conexionGeneral.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar la conexion de la base de datos");
+            }
+        }
+    }
+
+    private int EditarPrueba(PruebaDTO prueba) throws SQLException {
+    String updateAlumno = """
+                                UPDATE Pruebas 
+                                SET nombre = ?
+                                WHERE id = ?
+                                """;
+
+        try (PreparedStatement preparedStatement = conexionGeneral.prepareStatement(updateAlumno)) {
+            preparedStatement.setString(1, prueba.getNombre());
+            preparedStatement.setInt(2, prueba.getId());
+            preparedStatement.executeUpdate();
+
+        }
+        return prueba.getId();
     }
 }

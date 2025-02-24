@@ -54,4 +54,34 @@ public class PruebaNegocio implements IPruebaNegocio{
     public List<String> obtenerParametrosPorPrueba(int idPrueba) throws NegocioException{
         return pruebaDAO.obtenerParametrosPorPrueba(idPrueba);
     }
+    
+    @Override
+    public PruebaDTO eliminar(int id) throws NegocioException {
+            try {
+            if (id <= 0) {
+                throw new NegocioException("El id recibido es incorrecto");
+            }
+            PruebaEntidad alumnoBD = this.pruebaDAO.buscarId(id);
+            if (alumnoBD == null) {
+                throw new NegocioException("No se pudo obtener la prueba con la clave ingresada");
+            }
+            PruebaEntidad eliminado = this.pruebaDAO.eliminar(id);
+            System.out.println(eliminado);
+            return new PruebaDTO(eliminado.getId(), eliminado.getNombre(), eliminado.getIdCategoria(), eliminado.isEstaBorrado());
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+    @Override
+    public PruebaDTO editar(PruebaDTO prueba) throws NegocioException {
+        try {
+            
+            PruebaEntidad modificado = this.pruebaDAO.editar(prueba);
+            System.out.println(modificado);
+            return new PruebaDTO(modificado.getId(), modificado.getNombre(), modificado.getIdCategoria(), modificado.isEstaBorrado());
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+    
 }
