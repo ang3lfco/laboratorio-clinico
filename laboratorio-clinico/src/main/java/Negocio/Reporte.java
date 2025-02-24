@@ -4,6 +4,7 @@
  */
 package Negocio;
 
+import Dtos.ReporteDTO;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import java.io.*;
@@ -11,13 +12,14 @@ import javax.swing.table.DefaultTableModel;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import javax.swing.JFileChooser;
+import java.util.List;
 
 /**
  *
  * @author ReneEzequiel23
  */
 public class Reporte {
-    public void Reporte(String fechaInicio, String fechaFinal, DefaultTableModel model) {
+    public void Reporte(String fechaInicio, String fechaFinal, List<ReporteDTO> lista) {
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -55,27 +57,33 @@ public class Reporte {
             document.add(new Paragraph(" ")); // Espacio en blanco
 
             // Tabla de pagos
-            Paragraph tablaTitulo = new Paragraph("Tabla:", fontSubTitulo);
-            document.add(tablaTitulo);
+            
 
-            PdfPTable table = new PdfPTable(2); // 2 columnas para los datos de Pago
+            PdfPTable table = new PdfPTable(4); // columnas para los datos de Pago
             table.setWidthPercentage(100);
 
             // Encabezados de la tabla
-            String[] headers = {"Cliente", "Cantidad"};
+            String[] headers = {"Cliente","Analisis","folio","Fecha"};
             for (String header : headers) {
                 PdfPCell cell = new PdfPCell(new Phrase(header, fontContenido));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
                 table.addCell(cell);
             }
-
             // Datos de la tabla
-            for (int i = 0; i < model.getRowCount(); i++) {
-                for (int j = 0; j < model.getColumnCount(); j++) {
-                    table.addCell(new Phrase(model.getValueAt(i, j).toString(), fontContenido));
-                }
+                
+            for (int i = 0; i < lista.size(); i++) {
+                    
+                    table.addCell(new Phrase(lista.get(i).getCliente(), fontContenido));
+                    table.addCell(new Phrase(lista.get(i).getPrueba(), fontContenido));
+                    table.addCell(new Phrase(String.valueOf(lista.get(i).getAnalisis()) , fontContenido));
+                    table.addCell(new Phrase(lista.get(i).getFechaHora().toString(), fontContenido));
             }
+//            for (int i = 0; i < model.getRowCount(); i++) {
+//                for (int j = 0; j < model.getColumnCount(); j++) {
+//                    table.addCell(new Phrase(model.getValueAt(i, j).toString(), fontContenido));
+//                }
+//            }
 
             document.add(table);
             
@@ -101,4 +109,6 @@ public class Reporte {
         String path = name.getAbsolutePath();
         System.out.println(path);  
     }
+    
+    
 }

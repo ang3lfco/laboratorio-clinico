@@ -11,6 +11,7 @@ import Negocio.IMedicionNegocio;
 import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.IRegistroNegocio;
+import Negocio.IReporteNegocio;
 import Negocio.NegocioException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,11 +28,13 @@ public class frmMenuAdmin extends javax.swing.JFrame {
     private IParametroNegocio parametroNegocio;
     private IMedicionNegocio medicionNegocio;
     private IRegistroNegocio registroNegocio;
+    private IReporteNegocio reporteNegocio;
     /**
      * Creates new form frmMenuAdmin
      */
-    public frmMenuAdmin(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio, IRegistroNegocio registroNegocio) {
+    public frmMenuAdmin(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio, IRegistroNegocio registroNegocio, IReporteNegocio reporteNegocio) {
         initComponents();
+        this.reporteNegocio = reporteNegocio;
         this.clienteNegocio = clienteNegocio;
         this.pruebaNegocio = pruebaNegocio;
         this.categoriaNegocio = categoriaNegocio;
@@ -601,7 +604,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
 
     private void pnlReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlReportesMouseClicked
         // TODO add your handling code here:
-        frmTipoReporte reporte = new frmTipoReporte();
+        frmReporteClientes reporte = new frmReporteClientes(reporteNegocio);
         reporte.setVisible(true);
     }//GEN-LAST:event_pnlReportesMouseClicked
 

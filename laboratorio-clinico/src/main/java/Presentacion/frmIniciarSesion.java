@@ -13,6 +13,7 @@ import Negocio.IMedicionNegocio;
 import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.IRegistroNegocio;
+import Negocio.IReporteNegocio;
 import Negocio.NegocioException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,10 +31,11 @@ public class frmIniciarSesion extends javax.swing.JFrame {
     private IMedicionNegocio medicionNegocio;
     private IRegistroNegocio registroNegocio;
     private IEmpleadoNegocio empleadoNegocio;
+    private IReporteNegocio reporteNegocio;
     /**
      * Creates new form frmIniciarSesion
      */
-    public frmIniciarSesion(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio, IRegistroNegocio registroNegocio, IEmpleadoNegocio empleadoNegocio) {
+    public frmIniciarSesion(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio, IRegistroNegocio registroNegocio, IEmpleadoNegocio empleadoNegocio, IReporteNegocio reporteNegocio) {
         initComponents();
         this.clienteNegocio = clienteNegocio;
         this.pruebaNegocio = pruebaNegocio;
@@ -43,6 +45,7 @@ public class frmIniciarSesion extends javax.swing.JFrame {
         this.medicionNegocio = medicionNegocio;
         this.registroNegocio = registroNegocio;
         this.empleadoNegocio = empleadoNegocio;
+        this.reporteNegocio = reporteNegocio;
         setLocationRelativeTo(null);
     }
 
@@ -147,7 +150,7 @@ public class frmIniciarSesion extends javax.swing.JFrame {
             EmpleadoDTO empleado = this.empleadoNegocio.logIn(usuario, pass);
             
             if (empleado.getTipo().equals("administrativo")) {
-            frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio);
+            frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio, reporteNegocio);
             admin.setVisible(true);
             }
             if (empleado.getTipo().equals("capturista")) {

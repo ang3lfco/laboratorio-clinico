@@ -4,6 +4,8 @@
 
 package com.mycompany.laboratorio.clinico;
 
+import Dtos.ReporteDTO;
+import Entidades.ReporteEntidad;
 import Negocio.AnalisisNegocio;
 import Negocio.CategoriaNegocio;
 import Negocio.ClienteNegocio;
@@ -16,11 +18,14 @@ import Negocio.IMedicionNegocio;
 import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.IRegistroNegocio;
+import Negocio.IReporteNegocio;
 import Negocio.MedicionNegocio;
+import Negocio.NegocioException;
 import Negocio.ParametroNegocio;
 import Negocio.PruebaNegocio;
 import Negocio.RegistroNegocio;
 import Negocio.Reporte;
+import Negocio.ReporteNegocio;
 import Persistencia.AnalisisDAO;
 import Persistencia.CategoriaDAO;
 import Persistencia.ClienteDAO;
@@ -35,11 +40,21 @@ import Persistencia.IMedicionDAO;
 import Persistencia.IParametroDAO;
 import Persistencia.IPruebaDAO;
 import Persistencia.IRegistroDAO;
+import Persistencia.IReporteDAO;
 import Persistencia.MedicionDAO;
 import Persistencia.ParametroDAO;
+import Persistencia.PersistenciaException;
 import Persistencia.PruebaDAO;
 import Persistencia.RegistroDAO;
+import Persistencia.ReporteDAO;
 import Presentacion.frmIniciarSesion;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -50,6 +65,9 @@ import javax.swing.table.DefaultTableModel;
 public class LaboratorioClinico {
     public static void main(String[] args) {
         IConexionBD conexion = new ConexionBD();
+        
+        IReporteDAO reporte = new ReporteDAO(conexion);      
+        IReporteNegocio reporteNegocio = new ReporteNegocio(reporte);
         
         IClienteDAO clienteDAO = new ClienteDAO(conexion);
         IClienteNegocio clienteNegocio = new ClienteNegocio(clienteDAO);
@@ -75,11 +93,12 @@ public class LaboratorioClinico {
         IEmpleadoDAO empleadoDAO = new EmpleadoDAO(conexion);
         IEmpleadoNegocio empleadoNegocio = new EmpleadoNegocio(empleadoDAO);
         
-        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio,empleadoNegocio);
+        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio,empleadoNegocio, reporteNegocio);
         iniciar.setVisible(true);
-        
-        
+
+
 //        Reporte reporte = new Reporte();
 //        reporte.Reporte("fecha1", "fecha2", new DefaultTableModel());
+        
     }
 }
