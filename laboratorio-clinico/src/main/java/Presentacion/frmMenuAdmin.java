@@ -12,6 +12,7 @@ import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.IRegistroNegocio;
 import Negocio.IReporteNegocio;
+import Negocio.IResultadoNegocio;
 import Negocio.NegocioException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,10 +30,11 @@ public class frmMenuAdmin extends javax.swing.JFrame {
     private IMedicionNegocio medicionNegocio;
     private IRegistroNegocio registroNegocio;
     private IReporteNegocio reporteNegocio;
+    private IResultadoNegocio resultadoNegocio;
     /**
      * Creates new form frmMenuAdmin
      */
-    public frmMenuAdmin(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio, IRegistroNegocio registroNegocio, IReporteNegocio reporteNegocio) {
+    public frmMenuAdmin(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio, IRegistroNegocio registroNegocio, IReporteNegocio reporteNegocio, IResultadoNegocio resultadoNegocio) {
         initComponents();
         this.reporteNegocio = reporteNegocio;
         this.clienteNegocio = clienteNegocio;
@@ -42,6 +44,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         this.parametroNegocio = parametroNegocio;
         this.medicionNegocio = medicionNegocio;
         this.registroNegocio = registroNegocio;
+        this.resultadoNegocio = resultadoNegocio;
         setLocationRelativeTo(null);
     }
 
@@ -616,7 +619,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
 
     private void pnlResultadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlResultadosMouseClicked
         // TODO add your handling code here:
-        frmAdmResultados resultados = new frmAdmResultados();
+        frmAdmResultados resultados = new frmAdmResultados( clienteNegocio,  analisisNegocio,  pruebaNegocio,  parametroNegocio,  resultadoNegocio);
         resultados.setVisible(true);
     }//GEN-LAST:event_pnlResultadosMouseClicked
 

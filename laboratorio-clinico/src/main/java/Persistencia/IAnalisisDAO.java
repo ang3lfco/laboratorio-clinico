@@ -7,6 +7,7 @@ package Persistencia;
 import Dtos.EditarAnalisisDTO;
 import Dtos.GuardarAnalisisDTO;
 import Entidades.AnalisisEntidad;
+import Entidades.ClienteEntidad;
 import java.util.List;
 
 /**
@@ -23,4 +24,6 @@ public interface IAnalisisDAO {
     AnalisisEntidad eliminar(int id) throws PersistenciaException;
     
     AnalisisEntidad buscarPorId(int id) throws PersistenciaException;
+    
+    ClienteEntidad obtenerClientePorAnalisis(int idAnalisis) throws PersistenciaException;
 }

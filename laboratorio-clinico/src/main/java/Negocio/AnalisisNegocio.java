@@ -6,6 +6,7 @@ package Negocio;
 
 import Dtos.AnalisisDTO;
 import Dtos.AnalisisTablaDTO;
+import Dtos.ClienteDTO;
 import Dtos.EditarAnalisisDTO;
 import Dtos.GuardarAnalisisDTO;
 import Entidades.AnalisisEntidad;
@@ -164,6 +165,19 @@ public class AnalisisNegocio implements IAnalisisNegocio{
     }
 
     
-    
+    @Override
+    public ClienteDTO obtenerClientePorAnalisis(int idAnalisis) throws NegocioException {
+        try {
+            ClienteEntidad cliente = this.analisisDAO.obtenerClientePorAnalisis(idAnalisis);
+
+            if (cliente == null) {
+                throw new NegocioException("No se encontró el cliente asociado al análisis con id: " + idAnalisis);
+            }
+
+            return new ClienteDTO(cliente.getId(), cliente.getNombres(), cliente.getApellidoPaterno(), cliente.getApellidoMaterno(), cliente.getFechaNacimiento(), cliente.isEstaBorrado());
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error al obtener el cliente asociado al análisis: " + ex.getMessage());
+        }
+    }
     
 }

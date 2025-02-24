@@ -4,19 +4,38 @@
  */
 package Presentacion;
 
+import Negocio.IAnalisisNegocio;
+import Negocio.IClienteNegocio;
+import Negocio.IParametroNegocio;
+import Negocio.IPruebaNegocio;
+import Negocio.IRegistroNegocio;
+import Negocio.IResultadoNegocio;
+import Negocio.NegocioException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ang3lfco
  */
 public class frmMenuCap extends javax.swing.JFrame {
-
+    private IClienteNegocio clienteNegocio;
+    private IPruebaNegocio pruebaNegocio;
+    private IAnalisisNegocio analisisNegocio;
+    private IRegistroNegocio registroNegocio;
+    private IParametroNegocio parametroNegocio;
+    private IResultadoNegocio resultadoNegocio;
     /**
      * Creates new form frmMenuAdmin
      */
-    public frmMenuCap() {
+    public frmMenuCap(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, IAnalisisNegocio analisisNegocio, IRegistroNegocio registroNegocio, IParametroNegocio parametroNegocio, IResultadoNegocio resultadoNegocio) {
+        this.clienteNegocio = clienteNegocio;
+        this.pruebaNegocio = pruebaNegocio;
+        this.analisisNegocio = analisisNegocio;
+        this.registroNegocio = registroNegocio;
+        this.parametroNegocio = parametroNegocio;
+        this.resultadoNegocio = resultadoNegocio;
         initComponents();
         setLocationRelativeTo(null);
-        
     }
 
     /**
@@ -30,54 +49,59 @@ public class frmMenuCap extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
+        frmRegistrarAnalisis = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
+        pnlResultados = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(9, 19, 71));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Menu principal - capturista.");
 
-        jPanel8.setBackground(new java.awt.Color(249, 249, 249));
-        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        frmRegistrarAnalisis.setBackground(new java.awt.Color(52, 71, 169));
+        frmRegistrarAnalisis.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        frmRegistrarAnalisis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                frmRegistrarAnalisisMouseClicked(evt);
+            }
+        });
 
         jLabel20.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Registrar");
 
         jLabel21.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Analisis");
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/muestra.png"))); // NOI18N
         jLabel22.setToolTipText("");
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout frmRegistrarAnalisisLayout = new javax.swing.GroupLayout(frmRegistrarAnalisis);
+        frmRegistrarAnalisis.setLayout(frmRegistrarAnalisisLayout);
+        frmRegistrarAnalisisLayout.setHorizontalGroup(
+            frmRegistrarAnalisisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frmRegistrarAnalisisLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(frmRegistrarAnalisisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addComponent(jLabel22)
                 .addContainerGap())
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        frmRegistrarAnalisisLayout.setVerticalGroup(
+            frmRegistrarAnalisisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frmRegistrarAnalisisLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -86,31 +110,36 @@ public class frmMenuCap extends javax.swing.JFrame {
             .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel11.setBackground(new java.awt.Color(249, 249, 249));
-        jPanel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlResultados.setBackground(new java.awt.Color(52, 71, 169));
+        pnlResultados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlResultados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlResultadosMouseClicked(evt);
+            }
+        });
 
         jLabel29.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setText("Resultados");
 
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/historial-medico.png"))); // NOI18N
         jLabel31.setToolTipText("");
 
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlResultadosLayout = new javax.swing.GroupLayout(pnlResultados);
+        pnlResultados.setLayout(pnlResultadosLayout);
+        pnlResultadosLayout.setHorizontalGroup(
+            pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlResultadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel31)
                 .addContainerGap())
         );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
+        pnlResultadosLayout.setVerticalGroup(
+            pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlResultadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel29)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -124,23 +153,23 @@ public class frmMenuCap extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(frmRegistrarAnalisis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(281, Short.MAX_VALUE))
+                        .addComponent(pnlResultados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1))
+                .addGap(281, 281, 281))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(281, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(frmRegistrarAnalisis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlResultados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(278, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,6 +185,23 @@ public class frmMenuCap extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void frmRegistrarAnalisisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frmRegistrarAnalisisMouseClicked
+        // TODO add your handling code here:
+        frmRegistrarAnalisis analisis;
+        try {
+            analisis = new frmRegistrarAnalisis(clienteNegocio, pruebaNegocio, analisisNegocio, registroNegocio);
+            analisis.setVisible(true);
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_frmRegistrarAnalisisMouseClicked
+
+    private void pnlResultadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlResultadosMouseClicked
+        // TODO add your handling code here:
+        frmAdmResultados resultados = new frmAdmResultados( clienteNegocio,  analisisNegocio,  pruebaNegocio,  parametroNegocio,  resultadoNegocio);
+        resultados.setVisible(true);
+    }//GEN-LAST:event_pnlResultadosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -194,6 +240,7 @@ public class frmMenuCap extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel frmRegistrarAnalisis;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -201,7 +248,6 @@ public class frmMenuCap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel pnlResultados;
     // End of variables declaration//GEN-END:variables
 }

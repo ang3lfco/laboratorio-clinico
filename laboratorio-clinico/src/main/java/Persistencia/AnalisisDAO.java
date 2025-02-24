@@ -319,6 +319,44 @@ public class AnalisisDAO implements IAnalisisDAO{
         boolean estaBorrado = resultado.getBoolean("estaborrado");
         return new AnalisisEntidad(id, fechaHora, idCliente , estaBorrado);
     }
-
     
+    @Override
+    public ClienteEntidad obtenerClientePorAnalisis(int idAnalisis) throws PersistenciaException {
+        try {
+            AnalisisEntidad analisis = buscarPorId(idAnalisis);
+
+            String consultaSQL = """
+                SELECT id, nombres, apellidoPaterno, apellidoMaterno, fechaNacimiento, estaBorrado 
+                FROM Clientes 
+                WHERE id = ?;
+            """;
+
+            Connection conexion = this.conexionBD.crearConexion();
+            PreparedStatement preparedStatement = conexion.prepareStatement(consultaSQL);
+            preparedStatement.setInt(1, analisis.getIdCliente());
+
+            ResultSet resultado = preparedStatement.executeQuery();
+
+            ClienteEntidad cliente = null;
+            if (resultado.next()) {
+                cliente = new ClienteEntidad(
+                    resultado.getInt("id"),
+                    resultado.getString("nombres"),
+                    resultado.getString("apellidoPaterno"),
+                    resultado.getString("apellidoMaterno"),
+                    resultado.getDate("fechaNacimiento").toLocalDate(),
+                    resultado.getBoolean("estaBorrado")
+                );
+            }
+
+            resultado.close();
+            preparedStatement.close();
+            conexion.close();
+
+            return cliente;
+        } catch (SQLException ex) {
+            throw new PersistenciaException("Error al obtener el cliente asociado al análisis: " + ex.getMessage());
+        }
+    }
+
 }

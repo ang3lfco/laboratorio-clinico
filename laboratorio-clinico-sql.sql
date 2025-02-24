@@ -15,6 +15,7 @@ CREATE TABLE Analisis (
     fechaHora DATETIME NOT NULL,
     estaBorrado BIT DEFAULT 0,
     idCliente INT NOT NULL,
+    folio VARCHAR(20) UNIQUE,
     FOREIGN KEY (idCliente) REFERENCES Clientes(id)
 );
 
@@ -67,3 +68,45 @@ CREATE TABLE Empleados(
     pass VARCHAR(10) NOT NULL,
     tipo ENUM('administrativo', 'capturista') NOT NULL
 );
+
+
+DELIMITER $$
+      CREATE PROCEDURE reporte(
+      IN inicio DATE,
+      IN fin DATE
+      )
+      BEGIN
+       SELECT
+       C.id,
+       C.nombres as cliente,
+       P.nombre,
+       A.id AS analisis,
+       A.fechaHora
+       FROM analisis AS A
+       INNER JOIN clientes AS C
+       ON C.id = A.idCliente
+       INNER JOIN registros as R
+			ON A.id = R.idAnalisis
+		INNER JOIN pruebas AS P
+			ON P.id = R.idPrueba
+		WHERE A.fechaHora > inicio AND A.fechaHora < fin
+        ORDER BY C.id;
+        END $$
+        DELIMITER ;
+        
+DELIMITER //
+CREATE TRIGGER generar_folio_analisis
+BEFORE INSERT ON Analisis
+FOR EACH ROW
+BEGIN
+    DECLARE nuevo_id INT;
+    
+    -- Obtiene el siguiente ID basándose en el máximo ID existente
+    SET nuevo_id = (SELECT COALESCE(MAX(id), 0) + 1 FROM Analisis);
+    
+    -- Genera el folio con el formato ANAFOL0001, ANAFOL0002...
+    SET NEW.folio = CONCAT('ANAFOL', LPAD(nuevo_id, 4, '0'));
+END;
+//
+DELIMITER ;
+

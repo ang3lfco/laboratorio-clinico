@@ -111,13 +111,13 @@ public class frmAdmAnalisis extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Cliente", "Prueba(s)", "Fecha & Hora", ""
+                "Cliente", "Prueba(s)", "Fecha & Hora", "Folio", ""
             }
         ));
         jScrollPane1.setViewportView(jTable1);

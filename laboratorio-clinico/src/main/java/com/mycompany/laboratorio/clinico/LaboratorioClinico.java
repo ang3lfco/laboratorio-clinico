@@ -19,6 +19,7 @@ import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.IRegistroNegocio;
 import Negocio.IReporteNegocio;
+import Negocio.IResultadoNegocio;
 import Negocio.MedicionNegocio;
 import Negocio.NegocioException;
 import Negocio.ParametroNegocio;
@@ -26,6 +27,7 @@ import Negocio.PruebaNegocio;
 import Negocio.RegistroNegocio;
 import Negocio.Reporte;
 import Negocio.ReporteNegocio;
+import Negocio.ResultadoNegocio;
 import Persistencia.AnalisisDAO;
 import Persistencia.CategoriaDAO;
 import Persistencia.ClienteDAO;
@@ -41,12 +43,14 @@ import Persistencia.IParametroDAO;
 import Persistencia.IPruebaDAO;
 import Persistencia.IRegistroDAO;
 import Persistencia.IReporteDAO;
+import Persistencia.IResultadoDAO;
 import Persistencia.MedicionDAO;
 import Persistencia.ParametroDAO;
 import Persistencia.PersistenciaException;
 import Persistencia.PruebaDAO;
 import Persistencia.RegistroDAO;
 import Persistencia.ReporteDAO;
+import Persistencia.ResultadoDAO;
 import Presentacion.frmIniciarSesion;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -93,7 +97,10 @@ public class LaboratorioClinico {
         IEmpleadoDAO empleadoDAO = new EmpleadoDAO(conexion);
         IEmpleadoNegocio empleadoNegocio = new EmpleadoNegocio(empleadoDAO);
         
-        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio,empleadoNegocio, reporteNegocio);
+        IResultadoDAO resultadoDAO = new ResultadoDAO(conexion);
+        IResultadoNegocio resultadoNegocio = new ResultadoNegocio(resultadoDAO);
+        
+        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio,empleadoNegocio, reporteNegocio, resultadoNegocio);
         iniciar.setVisible(true);
 
 

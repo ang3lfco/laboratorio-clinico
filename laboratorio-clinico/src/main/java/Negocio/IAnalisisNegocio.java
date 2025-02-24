@@ -6,8 +6,10 @@ package Negocio;
 
 import Dtos.AnalisisDTO;
 import Dtos.AnalisisTablaDTO;
+import Dtos.ClienteDTO;
 import Dtos.EditarAnalisisDTO;
 import Dtos.GuardarAnalisisDTO;
+import Entidades.ClienteEntidad;
 import java.util.List;
 
 /**
@@ -24,4 +26,6 @@ public interface IAnalisisNegocio {
     AnalisisDTO eliminar(int id) throws NegocioException;
 
     AnalisisDTO buscarPorId(int id) throws NegocioException;
+    
+    ClienteDTO obtenerClientePorAnalisis(int idAnalisis) throws NegocioException;
 }
