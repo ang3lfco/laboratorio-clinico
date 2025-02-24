@@ -160,7 +160,7 @@ public class frmIniciarSesion extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No tienes acceso al sistema.");
             }
         } catch (NegocioException ex) {
-            Logger.getLogger(frmIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error. " + ex.getMessage());
         }
     }//GEN-LAST:event_btnIngresarMouseClicked
 

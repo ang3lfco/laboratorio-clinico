@@ -59,7 +59,7 @@ public class frmAdmClientes extends javax.swing.JFrame {
             row[3] = c.getFechaNacimiento();
             model.addRow(row);
         }
-        tblClientes.setRowHeight(50);
+        tblClientes.setRowHeight(40);
         
         tblClientes.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
             @Override

@@ -26,15 +26,6 @@ public class ButtonRenderer extends JPanel implements TableCellRenderer {
         setBackground(Color.WHITE);
         editButton = new JButton(new ImageIcon(getClass().getResource("/iconos/editar.png")));
         deleteButton = new JButton(new ImageIcon(getClass().getResource("/iconos/eliminar.png")));
-        editButton.setBackground(Color.WHITE);
-        deleteButton.setBackground(Color.WHITE);
-        editButton.setBorderPainted(false);
-        editButton.setFocusPainted(false);
-        editButton.setContentAreaFilled(false);
-        
-        deleteButton.setBorderPainted(false);
-        deleteButton.setFocusPainted(false);
-        deleteButton.setContentAreaFilled(false);
         add(editButton);
         add(deleteButton);
     }
