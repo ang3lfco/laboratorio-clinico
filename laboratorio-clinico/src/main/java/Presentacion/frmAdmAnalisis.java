@@ -59,9 +59,14 @@ public class frmAdmAnalisis extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer());
 
         ButtonEditor editor = new ButtonEditor(
-            e -> JOptionPane.showMessageDialog(null, "Editar Analisis en fila: " + jTable1.getSelectedRow()), 
-            e -> JOptionPane.showMessageDialog(null, "Eliminar Analisis en fila: " + jTable1.getSelectedRow())
+            e -> {
+                JOptionPane.showMessageDialog(null, "Editar Analisis en fila: " + jTable1.getSelectedRow());
+            },
+            e -> {
+                JOptionPane.showMessageDialog(null, "Eliminar Analisis en fila: " + jTable1.getSelectedRow());
+            }
         );
+
 
         jTable1.getColumnModel().getColumn(3).setCellEditor(editor);
     }

@@ -151,8 +151,6 @@ public class frmEditarCliente extends javax.swing.JFrame {
         
         LocalDate fechaNacimiento = dtpFechaNacimiento.getDate();
         LocalDateTime fecha = LocalDateTime.of(fechaNacimiento, LocalTime.MIN);
-        
-        
         EditarClienteDTO cliente = new EditarClienteDTO(this.cliente.getId(),nombre, apellidoPaterno, apellidoMaterno, fecha);
         
         try{

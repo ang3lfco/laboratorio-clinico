@@ -14,6 +14,7 @@ import Utilidades.ButtonRenderer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +42,9 @@ public class frmAdmClientes extends javax.swing.JFrame {
     
     private void cargarDatos() throws NegocioException {
         List<ClienteTablaDTO> clientes = clienteNegocio.buscarClientes();
+        List<ClienteTablaDTO> clientesDisponibles = new ArrayList<>();
+        clientesDisponibles.clear();
+        
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setRowCount(0);
         for(ClienteTablaDTO c : clientes){
@@ -52,6 +56,24 @@ public class frmAdmClientes extends javax.swing.JFrame {
             model.addRow(row);
         }
         tblClientes.setRowHeight(40);
+        
+        tblClientes.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+            @Override
+            public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                java.awt.Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                ClienteTablaDTO cliente = clientes.get(row);
+                if (cliente.isEstaBorrado()) {
+                    cell.setBackground(new java.awt.Color(255, 200, 200));
+                    cell.setForeground(java.awt.Color.GRAY);
+                }
+                else {
+                    cell.setBackground(java.awt.Color.WHITE); 
+                    cell.setForeground(java.awt.Color.BLACK);
+                }
+                return cell;
+            }
+        });
     }
     
     private void configurarTabla() {
