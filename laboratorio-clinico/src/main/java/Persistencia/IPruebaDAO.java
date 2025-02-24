@@ -4,6 +4,7 @@
  */
 package Persistencia;
 
+import Dtos.GuardarPruebaDTO;
 import Entidades.PruebaEntidad;
 import java.util.List;
 
@@ -13,4 +14,5 @@ import java.util.List;
  */
 public interface IPruebaDAO {
     List<PruebaEntidad> buscarPruebas() throws PersistenciaException;
+    PruebaEntidad guardar(GuardarPruebaDTO prueba) throws PersistenciaException;
 }

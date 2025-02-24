@@ -4,11 +4,13 @@
  */
 package Persistencia;
 
+import Dtos.GuardarPruebaDTO;
 import Entidades.PruebaEntidad;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,5 +47,57 @@ public class PruebaDAO implements IPruebaDAO{
         }
     }
     
+    @Override
+    public PruebaEntidad guardar(GuardarPruebaDTO prueba) throws PersistenciaException{
+        String query = "INSERT INTO pruebas (nombre, idCategoria) VALUES (?, ?)";
+        try{
+            Connection mySqlConn = conexionBD.crearConexion();
+            PreparedStatement pstm = mySqlConn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            mySqlConn.setAutoCommit(false);
+            pstm.setString(1, prueba.getNombre());
+            pstm.setInt(2, prueba.getIdCategoria());
+            if(pstm.executeUpdate() == 0){
+                throw new PersistenciaException("No se puedo guardar Prueba.");
+            }
+            int idCategoria;
+            
+            ResultSet rs = pstm.getGeneratedKeys();
+            if(rs.next()){
+                idCategoria = rs.getInt(1);
+            }
+            else{
+                mySqlConn.rollback();
+                throw new PersistenciaException("No se obtuvo ID de Prueba.");
+            }
+            mySqlConn.commit();
+            return buscarId(idCategoria);
+        }
+        catch(SQLException e){
+            throw new PersistenciaException("Error. " + e.getMessage());
+        }
+    }
     
+    public PruebaEntidad buscarId(int id) throws PersistenciaException{
+        String query = "SELECT id, nombre, idCategoria, estaBorrado FROM pruebas WHERE id = ?";
+        try{
+            Connection mySqlConn = conexionBD.crearConexion();
+            PreparedStatement pstm = mySqlConn.prepareStatement(query);
+            pstm.setInt(1, id);
+            ResultSet rs = pstm.executeQuery();
+            
+            if (rs.next()) {
+                int idPrueba = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                int idCategoria = rs.getInt("idCategoria");
+                boolean estaBorrado = rs.getBoolean("estaBorrado");
+                
+
+                return new PruebaEntidad(idPrueba, nombre, idCategoria, estaBorrado);
+            }
+            return null;
+        }
+        catch(SQLException e){
+            throw new PersistenciaException(e.getMessage());
+        }
+    }
 }

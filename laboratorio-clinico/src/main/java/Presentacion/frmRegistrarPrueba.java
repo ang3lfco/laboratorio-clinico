@@ -5,6 +5,7 @@
 package Presentacion;
 
 import Dtos.CategoriaDTO;
+import Dtos.GuardarPruebaDTO;
 import Dtos.ParametroTablaDTO;
 import Negocio.ICategoriaNegocio;
 import Negocio.IParametroNegocio;
@@ -106,7 +107,7 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txfNombre = new javax.swing.JTextField();
         btnRegistrarPrueba = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnAgregarCategoria = new javax.swing.JLabel();
@@ -120,8 +121,8 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jTextField1.setText("Nombre");
+        txfNombre.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        txfNombre.setText("Nombre");
 
         btnRegistrarPrueba.setBackground(new java.awt.Color(52, 71, 169));
         btnRegistrarPrueba.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
@@ -178,7 +179,7 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
+                            .addComponent(txfNombre)
                             .addComponent(btnRegistrarPrueba, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
                             .addComponent(btnAgregarCategoria)
                             .addComponent(btnAgregarParametro)
@@ -193,7 +194,7 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addGap(39, 39, 39)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbParametros, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -237,7 +238,28 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
 
     private void btnRegistrarPruebaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPruebaMouseClicked
         // TODO add your handling code here:
+        String nombrePrueba = txfNombre.getText();
+        String nombreCategoriaSeleccionada = (String) cmbCategorias.getSelectedItem();
         
+        if(!nombreCategoriaSeleccionada.equals("Selecciona una categoria")){
+            CategoriaDTO categoriaSeleccionada = null;
+            for(CategoriaDTO c : categorias){
+                String catN = c.getNombre();
+                if(nombreCategoriaSeleccionada.equals(catN)){
+                    categoriaSeleccionada = c;
+                    break;
+                }
+            }
+            if(categoriaSeleccionada != null){
+                int idCategoria = categoriaSeleccionada.getId();
+                try{
+                    pruebaNegocio.guardar(new GuardarPruebaDTO(nombrePrueba, idCategoria));
+                }
+                catch(NegocioException e){
+                    JOptionPane.showMessageDialog(null, "error. " + e.getMessage());
+                }
+            }
+        }
     }//GEN-LAST:event_btnRegistrarPruebaMouseClicked
 
 //    /**
@@ -287,7 +309,7 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextArea txaParametrosSeleccionados;
+    private javax.swing.JTextField txfNombre;
     // End of variables declaration//GEN-END:variables
 }

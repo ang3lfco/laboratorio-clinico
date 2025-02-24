@@ -66,6 +66,7 @@ public class CategoriaDAO implements ICategoriaDAO{
                 idCategoria = rs.getInt(1);
             }
             else{
+                mySqlConn.rollback();
                 throw new PersistenciaException("No se obtuvo ID de Categoria.");
             }
             mySqlConn.commit();

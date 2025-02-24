@@ -4,6 +4,8 @@
  */
 package Negocio;
 
+import Dtos.GuardarPruebaDTO;
+import Dtos.PruebaDTO;
 import Dtos.PruebaTablaDTO;
 import java.util.List;
 
@@ -13,4 +15,5 @@ import java.util.List;
  */
 public interface IPruebaNegocio {
     List<PruebaTablaDTO> buscarPruebas() throws NegocioException;
+    PruebaDTO guardar(GuardarPruebaDTO prueba) throws NegocioException;
 }

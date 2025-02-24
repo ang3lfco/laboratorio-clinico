@@ -4,6 +4,8 @@
  */
 package Negocio;
 
+import Dtos.GuardarPruebaDTO;
+import Dtos.PruebaDTO;
 import Dtos.PruebaTablaDTO;
 import Entidades.PruebaEntidad;
 import Persistencia.IPruebaDAO;
@@ -35,5 +37,17 @@ public class PruebaNegocio implements IPruebaNegocio{
         catch(PersistenciaException e){
             throw new NegocioException("Error. " + e.getMessage());
         }
+    }
+    
+    @Override 
+    public PruebaDTO guardar(GuardarPruebaDTO prueba) throws NegocioException{
+        try{
+            PruebaEntidad pruebaEntidad = pruebaDAO.guardar(prueba);
+            return new PruebaDTO(pruebaEntidad.getId(), pruebaEntidad.getNombre(), pruebaEntidad.getIdCategoria(), pruebaEntidad.isEstaBorrado());
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException(e.getMessage());
+        }
+        
     }
 }

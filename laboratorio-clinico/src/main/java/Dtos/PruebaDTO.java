@@ -2,28 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entidades;
+package Dtos;
 
 /**
- * 
- * @author ReneEzequiel23
+ *
+ * @author ang3lfco
  */
-public class PruebaEntidad {
+public class PruebaDTO {
     private int id;
     private String nombre;
     private int idCategoria;
     private boolean estaBorrado;
 
-    public PruebaEntidad() {
-    }
-
-    public PruebaEntidad(String nombre, int idCategoria, boolean estaBorrado) {
-        this.nombre = nombre;
-        this.idCategoria = idCategoria;
-        this.estaBorrado = estaBorrado;
-    }
-
-    public PruebaEntidad(int id, String nombre, int idCategoria, boolean estaBorrado) {
+    public PruebaDTO(int id, String nombre, int idCategoria, boolean estaBorrado) {
         this.id = id;
         this.nombre = nombre;
         this.idCategoria = idCategoria;
@@ -64,6 +55,6 @@ public class PruebaEntidad {
 
     @Override
     public String toString() {
-        return "PruebaEntidad{" + "id=" + id + ", nombre=" + nombre + ", idCategoria=" + idCategoria + ", estaBorrado=" + estaBorrado + '}';
+        return "PruebaDTO{" + "id=" + id + ", nombre=" + nombre + ", idCategoria=" + idCategoria + ", estaBorrado=" + estaBorrado + '}';
     }
 }
