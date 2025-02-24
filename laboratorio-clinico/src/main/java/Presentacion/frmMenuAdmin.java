@@ -7,6 +7,7 @@ package Presentacion;
 import Negocio.IAnalisisNegocio;
 import Negocio.ICategoriaNegocio;
 import Negocio.IClienteNegocio;
+import Negocio.IMedicionNegocio;
 import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.NegocioException;
@@ -23,16 +24,18 @@ public class frmMenuAdmin extends javax.swing.JFrame {
     private ICategoriaNegocio categoriaNegocio;
     private IAnalisisNegocio analisisNegocio;
     private IParametroNegocio parametroNegocio;
+    private IMedicionNegocio medicionNegocio;
     /**
      * Creates new form frmMenuAdmin
      */
-    public frmMenuAdmin(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio) {
+    public frmMenuAdmin(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio) {
         initComponents();
         this.clienteNegocio = clienteNegocio;
         this.pruebaNegocio = pruebaNegocio;
         this.categoriaNegocio = categoriaNegocio;
         this.analisisNegocio = analisisNegocio;
         this.parametroNegocio = parametroNegocio;
+        this.medicionNegocio = medicionNegocio;
         setLocationRelativeTo(null);
         
     }
@@ -563,7 +566,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
         frmRegistrarPrueba prueba;
         try {
-            prueba = new frmRegistrarPrueba(categoriaNegocio, parametroNegocio, pruebaNegocio);
+            prueba = new frmRegistrarPrueba(categoriaNegocio, parametroNegocio, pruebaNegocio, medicionNegocio);
             prueba.setVisible(true);
         } catch (NegocioException ex) {
             Logger.getLogger(frmMenuAdmin.class.getName()).log(Level.SEVERE, null, ex);

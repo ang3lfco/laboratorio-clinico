@@ -7,6 +7,7 @@ package Presentacion;
 import Negocio.IAnalisisNegocio;
 import Negocio.ICategoriaNegocio;
 import Negocio.IClienteNegocio;
+import Negocio.IMedicionNegocio;
 import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
 
@@ -20,16 +21,18 @@ public class frmIniciarSesion extends javax.swing.JFrame {
     private ICategoriaNegocio categoriaNegocio;
     private IAnalisisNegocio analisisNegocio;
     private IParametroNegocio parametroNegocio;
+    private IMedicionNegocio medicionNegocio;
     /**
      * Creates new form frmIniciarSesion
      */
-    public frmIniciarSesion(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio) {
+    public frmIniciarSesion(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio) {
         initComponents();
         this.clienteNegocio = clienteNegocio;
         this.pruebaNegocio = pruebaNegocio;
         this.categoriaNegocio = categoriaNegocio;
         this.analisisNegocio = analisisNegocio;
         this.parametroNegocio = parametroNegocio;
+        this.medicionNegocio = medicionNegocio;
         setLocationRelativeTo(null);
     }
 
@@ -121,7 +124,7 @@ public class frmIniciarSesion extends javax.swing.JFrame {
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
         // TODO add your handling code here:
-        frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio);
+        frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio);
         admin.setVisible(true);
     }//GEN-LAST:event_btnIngresarMouseClicked
 //

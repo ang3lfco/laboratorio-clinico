@@ -5,9 +5,12 @@
 package Presentacion;
 
 import Dtos.CategoriaDTO;
+import Dtos.GuardarMedicionDTO;
 import Dtos.GuardarPruebaDTO;
 import Dtos.ParametroTablaDTO;
+import Dtos.PruebaDTO;
 import Negocio.ICategoriaNegocio;
+import Negocio.IMedicionNegocio;
 import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.NegocioException;
@@ -25,6 +28,7 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
     private ICategoriaNegocio categoriaNegocio;
     private IParametroNegocio parametroNegocio;
     private IPruebaNegocio pruebaNegocio;
+    private IMedicionNegocio medicionNegocio;
     
     private List<CategoriaDTO> categorias;
     List<ParametroTablaDTO> parametros;
@@ -32,11 +36,12 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
     /**
      * Creates new form frmRegistrarCliente
      */
-    public frmRegistrarPrueba(ICategoriaNegocio categoriaNegocio, IParametroNegocio parametroNegocio, IPruebaNegocio pruebaNegocio) throws NegocioException {
+    public frmRegistrarPrueba(ICategoriaNegocio categoriaNegocio, IParametroNegocio parametroNegocio, IPruebaNegocio pruebaNegocio, IMedicionNegocio medicionNegocio) throws NegocioException {
         initComponents();
         this.categoriaNegocio = categoriaNegocio;
         this.parametroNegocio = parametroNegocio;
         this.pruebaNegocio = pruebaNegocio;
+        this.medicionNegocio = medicionNegocio;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
@@ -123,7 +128,7 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         txfNombre.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        txfNombre.setText("Nombre");
+        txfNombre.setText("Nombre de Prueba");
 
         btnRegistrarPrueba.setBackground(new java.awt.Color(52, 71, 169));
         btnRegistrarPrueba.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
@@ -194,21 +199,21 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGap(39, 39, 39)
+                .addGap(19, 19, 19)
+                .addComponent(cmbCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAgregarCategoria)
+                .addGap(24, 24, 24)
                 .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbParametros, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAgregarParametro)
                 .addGap(18, 18, 18)
-                .addComponent(cmbCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAgregarCategoria)
-                .addGap(42, 42, 42)
                 .addComponent(btnRegistrarPrueba)
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -253,9 +258,18 @@ public class frmRegistrarPrueba extends javax.swing.JFrame {
             }
             if(categoriaSeleccionada != null){
                 int idCategoria = categoriaSeleccionada.getId();
+                String[] parametrosSeleccionados = txaParametrosSeleccionados.getText().split("\\n");
+                
                 try{
-                    pruebaNegocio.guardar(new GuardarPruebaDTO(nombrePrueba, idCategoria));
-                    JOptionPane.showMessageDialog(null, "Prueba registrada.");
+                    PruebaDTO pruebaGuardada = pruebaNegocio.guardar(new GuardarPruebaDTO(nombrePrueba, idCategoria));
+                    for(String parametro : parametrosSeleccionados){
+                        for(ParametroTablaDTO p : parametros){
+                            if(p.getNombre().equals(parametro)){
+                                medicionNegocio.guardar(new GuardarMedicionDTO(pruebaGuardada.getId(), p.getId()));
+                            }
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "Prueba y Medicion registrada.");
                     this.dispose();
                 }
                 catch(NegocioException e){
