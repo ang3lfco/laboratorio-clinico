@@ -48,6 +48,10 @@ public class PruebaNegocio implements IPruebaNegocio{
         catch(PersistenciaException e){
             throw new NegocioException(e.getMessage());
         }
-        
+    }
+    
+    @Override
+    public List<String> obtenerParametrosPorPrueba(int idPrueba) throws NegocioException{
+        return pruebaDAO.obtenerParametrosPorPrueba(idPrueba);
     }
 }

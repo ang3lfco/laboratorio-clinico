@@ -52,4 +52,15 @@ public class CategoriaNegocio implements ICategoriaNegocio{
         }
         return categoriasLista;
     }
+    
+    @Override
+    public CategoriaDTO buscarId(int id) throws NegocioException{
+        try{
+            CategoriaEntidad c = categoriaDAO.buscarId(id);
+            return new CategoriaDTO(c.getId(), c.getNombre());
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException(e.getMessage());
+        }
+    }
 }

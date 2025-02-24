@@ -14,4 +14,5 @@ import java.util.List;
 public interface ICategoriaNegocio {
     public List<CategoriaDTO> buscarCategorias() throws NegocioException;
     public CategoriaDTO guardar(CategoriaDTO categoriaDTO) throws NegocioException;
+    CategoriaDTO buscarId(int id) throws NegocioException;
 }

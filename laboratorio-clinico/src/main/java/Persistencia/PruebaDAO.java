@@ -6,6 +6,7 @@ package Persistencia;
 
 import Dtos.GuardarPruebaDTO;
 import Entidades.PruebaEntidad;
+import Negocio.NegocioException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -99,5 +100,25 @@ public class PruebaDAO implements IPruebaDAO{
         catch(SQLException e){
             throw new PersistenciaException(e.getMessage());
         }
+    }
+    
+    @Override
+    public List<String> obtenerParametrosPorPrueba(int idPrueba) throws NegocioException{
+        List<String> parametros = new ArrayList<>();
+        String query = "SELECT p.nombre FROM parametros p JOIN Mediciones m ON p.id = m.idParametro WHERE m.idPrueba = ?";
+        
+        try{
+            Connection mySqlConn = conexionBD.crearConexion();
+            PreparedStatement pstm = mySqlConn.prepareStatement(query);
+            pstm.setInt(1, idPrueba);
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                parametros.add(rs.getString("nombre"));
+            }
+        }
+        catch(SQLException e){
+            throw new NegocioException("Error al obtener parametros. " + e.getMessage());
+        }
+        return parametros;
     }
 }

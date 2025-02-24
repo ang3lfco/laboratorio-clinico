@@ -90,13 +90,13 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(9, 19, 71));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Menu principal - administrativo.");
 
-        pnlAdmClientes.setBackground(new java.awt.Color(249, 249, 249));
+        pnlAdmClientes.setBackground(new java.awt.Color(52, 71, 169));
         pnlAdmClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlAdmClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -105,11 +105,11 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Administracion");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("de Clientes");
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -140,7 +140,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pnlAdmPruebas.setBackground(new java.awt.Color(249, 249, 249));
+        pnlAdmPruebas.setBackground(new java.awt.Color(52, 71, 169));
         pnlAdmPruebas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlAdmPruebas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -149,11 +149,11 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Administracion");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("de Pruebas");
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -184,7 +184,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pnlAdmAnalisis.setBackground(new java.awt.Color(249, 249, 249));
+        pnlAdmAnalisis.setBackground(new java.awt.Color(52, 71, 169));
         pnlAdmAnalisis.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlAdmAnalisis.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -193,11 +193,11 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Administracion");
 
         jLabel12.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("de Analisis");
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -228,7 +228,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pnlRegistrarPrueba.setBackground(new java.awt.Color(249, 249, 249));
+        pnlRegistrarPrueba.setBackground(new java.awt.Color(52, 71, 169));
         pnlRegistrarPrueba.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlRegistrarPrueba.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -237,11 +237,11 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel14.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Registrar");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Prueba");
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -272,7 +272,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
             .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pnlRegistrarCliente.setBackground(new java.awt.Color(249, 249, 249));
+        pnlRegistrarCliente.setBackground(new java.awt.Color(52, 71, 169));
         pnlRegistrarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlRegistrarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -281,11 +281,11 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel17.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Registrar");
 
         jLabel18.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Cliente");
         jLabel18.setToolTipText("");
 
@@ -317,7 +317,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
             .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        frmRegistrarAnalisis.setBackground(new java.awt.Color(249, 249, 249));
+        frmRegistrarAnalisis.setBackground(new java.awt.Color(52, 71, 169));
         frmRegistrarAnalisis.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         frmRegistrarAnalisis.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -326,11 +326,11 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel20.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Registrar");
 
         jLabel21.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Analisis");
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -361,7 +361,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
             .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pnlHistorial.setBackground(new java.awt.Color(249, 249, 249));
+        pnlHistorial.setBackground(new java.awt.Color(52, 71, 169));
         pnlHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -370,7 +370,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel23.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Historial");
 
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -397,7 +397,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
             .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        pnlReportes.setBackground(new java.awt.Color(249, 249, 249));
+        pnlReportes.setBackground(new java.awt.Color(52, 71, 169));
         pnlReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlReportes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -406,7 +406,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel26.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("Reportes");
 
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -433,7 +433,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
             .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        pnlResultados.setBackground(new java.awt.Color(249, 249, 249));
+        pnlResultados.setBackground(new java.awt.Color(52, 71, 169));
         pnlResultados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlResultados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -442,7 +442,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel29.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(9, 19, 71));
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setText("Resultados");
 
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -550,7 +550,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         
         frmAdmPruebas pruebas;
         try{
-            pruebas = new frmAdmPruebas(this.pruebaNegocio);
+            pruebas = new frmAdmPruebas(pruebaNegocio, categoriaNegocio);
             pruebas.setVisible(true);
         } catch (NegocioException ex) {
             Logger.getLogger(frmMenuAdmin.class.getName()).log(Level.SEVERE, null, ex);

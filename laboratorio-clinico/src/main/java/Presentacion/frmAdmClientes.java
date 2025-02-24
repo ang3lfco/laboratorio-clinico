@@ -11,6 +11,7 @@ import Negocio.IClienteNegocio;
 import Negocio.NegocioException;
 import Utilidades.ButtonEditor;
 import Utilidades.ButtonRenderer;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -20,7 +21,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -38,6 +41,7 @@ public class frmAdmClientes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         cargarDatos();
         configurarTabla();
+        
     }
     
     private void cargarDatos() throws NegocioException {
@@ -55,7 +59,7 @@ public class frmAdmClientes extends javax.swing.JFrame {
             row[3] = c.getFechaNacimiento();
             model.addRow(row);
         }
-        tblClientes.setRowHeight(40);
+        tblClientes.setRowHeight(50);
         
         tblClientes.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
             @Override
@@ -184,8 +188,8 @@ public class frmAdmClientes extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
                 .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -91,7 +91,7 @@
                     <Column editable="true" title="Nombre" type="java.lang.Object"/>
                     <Column editable="true" title="Parametros" type="java.lang.Object"/>
                     <Column editable="true" title="Categoria" type="java.lang.Object"/>
-                    <Column editable="true" title="Iconos" type="java.lang.Object"/>
+                    <Column editable="true" title="" type="java.lang.Object"/>
                   </Table>
                 </Property>
               </Properties>

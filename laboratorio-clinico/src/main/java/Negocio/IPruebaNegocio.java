@@ -16,4 +16,5 @@ import java.util.List;
 public interface IPruebaNegocio {
     List<PruebaTablaDTO> buscarPruebas() throws NegocioException;
     PruebaDTO guardar(GuardarPruebaDTO prueba) throws NegocioException;
+    List<String> obtenerParametrosPorPrueba(int idPrueba) throws NegocioException;
 }

@@ -5,6 +5,7 @@
 package Presentacion;
 
 import Dtos.PruebaTablaDTO;
+import Negocio.ICategoriaNegocio;
 import Negocio.IPruebaNegocio;
 import Negocio.NegocioException;
 import Utilidades.ButtonEditor;
@@ -21,12 +22,14 @@ import javax.swing.table.DefaultTableModel;
 public class frmAdmPruebas extends javax.swing.JFrame {
 
     private IPruebaNegocio pruebaNegocio;
+    private ICategoriaNegocio categoriaNegocio;
     /**
      * Creates new form frmAdmPruebas
      */
-    public frmAdmPruebas(IPruebaNegocio pruebaNegocio) throws NegocioException {
+    public frmAdmPruebas(IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio) throws NegocioException {
         initComponents();
         this.pruebaNegocio = pruebaNegocio;
+        this.categoriaNegocio = categoriaNegocio;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         cargarDatos();
@@ -41,10 +44,13 @@ public class frmAdmPruebas extends javax.swing.JFrame {
         
         
         for (PruebaTablaDTO p: pruebas) {
+            List<String> nombresDeParametros = pruebaNegocio.obtenerParametrosPorPrueba(p.getId());
+            String parametroStr = String.join(", ", nombresDeParametros);
+            String nombreCategoria = categoriaNegocio.buscarId(p.getIdCategoria()).getNombre();
             Object[] row = new Object[4];
             row[0] = p.getNombre();
-            row[1] = "prueba";
-            row[2] = p.getIdCategoria();
+            row[1] = parametroStr;
+            row[2] = nombreCategoria;
             
             model.addRow(row);
         }
@@ -92,7 +98,7 @@ public class frmAdmPruebas extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Parametros", "Categoria", "Iconos"
+                "Nombre", "Parametros", "Categoria", ""
             }
         ));
         jScrollPane1.setViewportView(tblPruebas);
