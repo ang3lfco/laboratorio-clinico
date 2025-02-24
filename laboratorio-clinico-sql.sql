@@ -60,3 +60,10 @@ CREATE TABLE Resultados (
     FOREIGN KEY (idAnalisis) REFERENCES Analisis(id),
     FOREIGN KEY (idParametro) REFERENCES Parametros(id)
 );
+
+CREATE TABLE Empleados(
+	id int PRIMARY KEY AUTO_INCREMENT,
+	usuario VARCHAR(10) NOT NULL,
+    pass VARCHAR(10) NOT NULL,
+    tipo ENUM('administrativo', 'capturista') NOT NULL
+);
