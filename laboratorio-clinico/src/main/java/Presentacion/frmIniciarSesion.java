@@ -150,8 +150,9 @@ public class frmIniciarSesion extends javax.swing.JFrame {
             EmpleadoDTO empleado = this.empleadoNegocio.logIn(usuario, pass);
             
             if (empleado.getTipo().equals("administrativo")) {
-            frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio, reporteNegocio);
-            admin.setVisible(true);
+                frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio, reporteNegocio);
+                JOptionPane.showMessageDialog(null, "Bienvenido administrativo.");
+                admin.setVisible(true);
             }
             else if (empleado.getTipo().equals("capturista")) {
                 frmMenuCap cap = new frmMenuCap();
