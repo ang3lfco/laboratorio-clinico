@@ -10,6 +10,7 @@ import Negocio.IClienteNegocio;
 import Negocio.IMedicionNegocio;
 import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
+import Negocio.IRegistroNegocio;
 import Negocio.NegocioException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,10 +26,11 @@ public class frmMenuAdmin extends javax.swing.JFrame {
     private IAnalisisNegocio analisisNegocio;
     private IParametroNegocio parametroNegocio;
     private IMedicionNegocio medicionNegocio;
+    private IRegistroNegocio registroNegocio;
     /**
      * Creates new form frmMenuAdmin
      */
-    public frmMenuAdmin(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio) {
+    public frmMenuAdmin(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio, IRegistroNegocio registroNegocio) {
         initComponents();
         this.clienteNegocio = clienteNegocio;
         this.pruebaNegocio = pruebaNegocio;
@@ -36,8 +38,8 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         this.analisisNegocio = analisisNegocio;
         this.parametroNegocio = parametroNegocio;
         this.medicionNegocio = medicionNegocio;
+        this.registroNegocio = registroNegocio;
         setLocationRelativeTo(null);
-        
     }
 
     /**
@@ -584,7 +586,7 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
         frmRegistrarAnalisis analisis;
         try {
-            analisis = new frmRegistrarAnalisis(clienteNegocio, pruebaNegocio, analisisNegocio);
+            analisis = new frmRegistrarAnalisis(clienteNegocio, pruebaNegocio, analisisNegocio, registroNegocio);
             analisis.setVisible(true);
         } catch (NegocioException ex) {
             Logger.getLogger(frmMenuAdmin.class.getName()).log(Level.SEVERE, null, ex);

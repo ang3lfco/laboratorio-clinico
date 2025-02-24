@@ -10,6 +10,7 @@ import Negocio.IClienteNegocio;
 import Negocio.IMedicionNegocio;
 import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
+import Negocio.IRegistroNegocio;
 
 /**
  *
@@ -22,10 +23,11 @@ public class frmIniciarSesion extends javax.swing.JFrame {
     private IAnalisisNegocio analisisNegocio;
     private IParametroNegocio parametroNegocio;
     private IMedicionNegocio medicionNegocio;
+    private IRegistroNegocio registroNegocio;
     /**
      * Creates new form frmIniciarSesion
      */
-    public frmIniciarSesion(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio) {
+    public frmIniciarSesion(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, ICategoriaNegocio categoriaNegocio, IAnalisisNegocio analisisNegocio, IParametroNegocio parametroNegocio, IMedicionNegocio medicionNegocio, IRegistroNegocio registroNegocio) {
         initComponents();
         this.clienteNegocio = clienteNegocio;
         this.pruebaNegocio = pruebaNegocio;
@@ -33,6 +35,7 @@ public class frmIniciarSesion extends javax.swing.JFrame {
         this.analisisNegocio = analisisNegocio;
         this.parametroNegocio = parametroNegocio;
         this.medicionNegocio = medicionNegocio;
+        this.registroNegocio = registroNegocio;
         setLocationRelativeTo(null);
     }
 
@@ -48,9 +51,9 @@ public class frmIniciarSesion extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         btnIngresar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -61,9 +64,6 @@ public class frmIniciarSesion extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         jTextField1.setText("Usuario");
-
-        jTextField2.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jTextField2.setText("Contraseña");
 
         btnIngresar.setBackground(new java.awt.Color(52, 71, 169));
         btnIngresar.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
@@ -77,6 +77,9 @@ public class frmIniciarSesion extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/text-1.PNG"))); // NOI18N
 
+        jPasswordField1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        jPasswordField1.setText("jPasswordField1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -89,8 +92,8 @@ public class frmIniciarSesion extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3)
                     .addComponent(jTextField1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnIngresar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                    .addComponent(jPasswordField1))
                 .addGap(77, 77, 77))
         );
         jPanel1Layout.setVerticalGroup(
@@ -102,10 +105,10 @@ public class frmIniciarSesion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(btnIngresar)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -124,7 +127,7 @@ public class frmIniciarSesion extends javax.swing.JFrame {
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
         // TODO add your handling code here:
-        frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio);
+        frmMenuAdmin admin = new frmMenuAdmin(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio);
         admin.setVisible(true);
     }//GEN-LAST:event_btnIngresarMouseClicked
 //
@@ -168,7 +171,7 @@ public class frmIniciarSesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

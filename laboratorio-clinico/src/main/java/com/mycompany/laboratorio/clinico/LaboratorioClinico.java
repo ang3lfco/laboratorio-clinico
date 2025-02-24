@@ -13,9 +13,11 @@ import Negocio.IClienteNegocio;
 import Negocio.IMedicionNegocio;
 import Negocio.IParametroNegocio;
 import Negocio.IPruebaNegocio;
+import Negocio.IRegistroNegocio;
 import Negocio.MedicionNegocio;
 import Negocio.ParametroNegocio;
 import Negocio.PruebaNegocio;
+import Negocio.RegistroNegocio;
 import Negocio.Reporte;
 import Persistencia.AnalisisDAO;
 import Persistencia.CategoriaDAO;
@@ -28,9 +30,11 @@ import Persistencia.IConexionBD;
 import Persistencia.IMedicionDAO;
 import Persistencia.IParametroDAO;
 import Persistencia.IPruebaDAO;
+import Persistencia.IRegistroDAO;
 import Persistencia.MedicionDAO;
 import Persistencia.ParametroDAO;
 import Persistencia.PruebaDAO;
+import Persistencia.RegistroDAO;
 import Presentacion.frmIniciarSesion;
 import javax.swing.table.DefaultTableModel;
 
@@ -61,7 +65,10 @@ public class LaboratorioClinico {
         IMedicionDAO medicionDAO = new MedicionDAO(conexion);
         IMedicionNegocio medicionNegocio = new MedicionNegocio(medicionDAO);
         
-        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio);
+        IRegistroDAO registroDAO = new RegistroDAO(conexion);
+        IRegistroNegocio registroNegocio = new RegistroNegocio(registroDAO);
+        
+        frmIniciarSesion iniciar = new frmIniciarSesion(clienteNegocio, pruebaNegocio, categoriaNegocio, analisisNegocio, parametroNegocio, medicionNegocio, registroNegocio);
         iniciar.setVisible(true);
         
         

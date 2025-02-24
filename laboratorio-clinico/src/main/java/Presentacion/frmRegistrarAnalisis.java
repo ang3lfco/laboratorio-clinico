@@ -4,12 +4,15 @@
  */
 package Presentacion;
 
+import Dtos.AnalisisDTO;
 import Dtos.ClienteTablaDTO;
 import Dtos.GuardarAnalisisDTO;
+import Dtos.GuardarRegistroDTO;
 import Dtos.PruebaTablaDTO;
 import Negocio.IAnalisisNegocio;
 import Negocio.IClienteNegocio;
 import Negocio.IPruebaNegocio;
+import Negocio.IRegistroNegocio;
 import Negocio.NegocioException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,6 +26,7 @@ import javax.swing.JOptionPane;
 public class frmRegistrarAnalisis extends javax.swing.JFrame {
     private IClienteNegocio clienteNegocio;
     private IPruebaNegocio pruebaNegocio;
+    private IRegistroNegocio registroNegocio;
     
     private List<ClienteTablaDTO> clientes;
     private List<PruebaTablaDTO> pruebas;
@@ -31,11 +35,12 @@ public class frmRegistrarAnalisis extends javax.swing.JFrame {
     /**
      * Creates new form frmRegistrarCliente
      */
-    public frmRegistrarAnalisis(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, IAnalisisNegocio analisisNegocio) throws NegocioException {
+    public frmRegistrarAnalisis(IClienteNegocio clienteNegocio, IPruebaNegocio pruebaNegocio, IAnalisisNegocio analisisNegocio, IRegistroNegocio registroNegocio) throws NegocioException {
         initComponents();
         this.clienteNegocio = clienteNegocio;
         this.pruebaNegocio = pruebaNegocio;
         this.analisisNegocio = analisisNegocio;
+        this.registroNegocio = registroNegocio;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         cargarClientes();
@@ -180,8 +185,9 @@ public class frmRegistrarAnalisis extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Cliente: " + idCliente + " | Prueba: " + idPrueba);
                 
                 try{
-                    analisisNegocio.guardar(new GuardarAnalisisDTO(LocalDateTime.now(), idCliente));
-                    JOptionPane.showMessageDialog(null, "Analisis registrado.");
+                    AnalisisDTO a = analisisNegocio.guardar(new GuardarAnalisisDTO(LocalDateTime.now(), idCliente));
+                    registroNegocio.guardar(new GuardarRegistroDTO(a.getId(), idPrueba));
+                    JOptionPane.showMessageDialog(null, "Analisis y Registro registrado.");
                     this.dispose();
                 }
                 catch(NegocioException e){
